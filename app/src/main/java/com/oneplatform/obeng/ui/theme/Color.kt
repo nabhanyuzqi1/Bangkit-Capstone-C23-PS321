@@ -15,3 +15,6 @@ val orange = Color(0xFFFF5722)
 val text_hint_color = Color(0xFFA7A7A7)
 
 val splash_color = Color(0xFFFF5757)
+val secondColor = Color(0xFFF79009)
+val black = Color(0xFF1E1E1E)
+val green = Color(0xFF039855)
