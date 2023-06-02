@@ -62,6 +62,7 @@ fun CustomAppSearchBar(
             )
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
+            placeholderColor = Color.White,
             focusedBorderColor = secondary,
             unfocusedBorderColor = Color.Transparent,
             focusedLabelColor = Color.White,
@@ -78,5 +79,5 @@ fun CustomAppSearchBar(
 @Preview(showBackground = false)
 @Composable
 fun CustomAppSearchBarPreview(){
-    CustomAppSearchBar("Search...", R.drawable.ic_search, KeyboardType.Text )
+    CustomAppSearchBar("Cari teknisi..", R.drawable.ic_search, KeyboardType.Text )
 }

@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-//    id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -23,6 +23,7 @@ android {
     packagingOptions {
         resources.excludes.add("META-INF/*")
     }
+
 
     buildTypes {
         release {
@@ -51,8 +52,16 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+   //implementation 'com.google.firebase:firebase-admin:8.0.0'
 
+    // Declare the dependencies for the desired Firebase products without specifying versions
+    // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore'
+
+    implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
     def nav_version = "2.5.3"
 
     implementation "androidx.navigation:navigation-compose:$nav_version"

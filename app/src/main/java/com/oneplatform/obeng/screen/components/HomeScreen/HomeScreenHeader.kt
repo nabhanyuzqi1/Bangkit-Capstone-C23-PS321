@@ -113,7 +113,7 @@ fun HeaderHomePopularItems() {
         )*/
 
         CustomAppSearchBar(
-            placeHolder = "Search...",
+            placeHolder = "Cari Teknisi...",
             leadingIconId = R.drawable.ic_search,
             keyboardType = KeyboardType.Text,
             //visualTransformation = VisualTransformation.None

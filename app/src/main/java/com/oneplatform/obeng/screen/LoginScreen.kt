@@ -49,6 +49,7 @@ import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.dark_gray
 import com.oneplatform.obeng.ui.theme.gray
 import com.oneplatform.obeng.ui.theme.light_gray
+import com.oneplatform.obeng.utils.CobaLogin
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -198,7 +199,8 @@ fun CustomerLoginPage(navController: NavController) {
                         Button(
                             onClick = {
                                 //navController.popBackStack()
-                                navController.navigate("home_screen")
+                                //navController.navigate("home_screen")
+                                CobaLogin(email = "nabhan@example.com", password = "coba123", navController)
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Red100),
                             modifier = Modifier
@@ -370,7 +372,8 @@ fun TechnicianLoginPage(navController: NavController) {
                         Button(
                             onClick = {
                                 //navController.popBackStack()
-                                navController.navigate("home_screen")},
+                                //navController.navigate("home_screen")
+                                      },
                             colors = ButtonDefaults.buttonColors(containerColor = Red100),
                             modifier = Modifier
                                 .padding(top = 30.dp, bottom = 34.dp)

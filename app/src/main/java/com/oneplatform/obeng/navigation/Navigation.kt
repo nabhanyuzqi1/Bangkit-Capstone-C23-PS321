@@ -1,6 +1,5 @@
 package com.oneplatform.obeng.navigation
 
-import android.transition.Scene
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -8,7 +7,6 @@ import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.screen.HomeScreen
 import com.oneplatform.obeng.screen.LoginScreen
 import com.oneplatform.obeng.screen.SplashScreen
-import com.oneplatform.obeng.screen.*
 import com.oneplatform.obeng.screen.components.RegisterForm.RegisterFormTechnician
 import com.oneplatform.obeng.screen.components.RegisterForm.RegisterFormUser
 
@@ -38,5 +36,6 @@ fun Navigation(){
         composable(Screen.HomeScreen.route){
             HomeScreen(navController = navController)
         }
+
     }
 }
