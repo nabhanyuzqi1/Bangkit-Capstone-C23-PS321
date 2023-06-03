@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class
+)
 
 package com.oneplatform.obeng.screen.components
 
@@ -6,7 +8,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -19,6 +23,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -27,10 +32,12 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.oneplatform.obeng.R
+import com.oneplatform.obeng.ui.theme.gray
 import com.oneplatform.obeng.ui.theme.secondary
 
 @Composable
@@ -44,34 +51,39 @@ fun CustomAppSearchBar(
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
+            .height(50.dp)
             .background(Color.Transparent),
         value = textState.value,
         onValueChange = { valueChanged ->
             textState.value = valueChanged
         },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-        placeholder = { Text(text = placeHolder) },
+        placeholder = {
+            Row (verticalAlignment = Alignment.CenterVertically){
+                Text(text = placeHolder, fontSize = 14.sp)
+            } },
         trailingIcon = {
             Image(
                 modifier = Modifier
-                    .padding(start = 10.dp, end = 10.dp)
+                    .padding(horizontal = 8.dp)
                     .size(18.dp),
                 bitmap = ImageBitmap.imageResource(id = leadingIconId),  // material icon
-                colorFilter = ColorFilter.tint(Color.White),
+                colorFilter = ColorFilter.tint(gray),
                 contentDescription = "custom_text_field"
             )
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            placeholderColor = Color.White,
-            focusedBorderColor = secondary,
+            placeholderColor = gray,
+            focusedBorderColor = Color.Transparent,
             unfocusedBorderColor = Color.Transparent,
-            focusedLabelColor = Color.White,
-            disabledTrailingIconColor = Color.White,
+            focusedLabelColor = gray,
+            disabledTrailingIconColor = gray,
         ),
         shape = RoundedCornerShape(10.dp), // Adjust the corner radius as needed
-        textStyle = TextStyle(color = Color.White, fontSize = 16.sp)
+        textStyle = TextStyle(color = gray, fontSize = 16.sp, textAlign = TextAlign.Center)
     )
 }
+
 
 
 

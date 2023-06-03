@@ -12,7 +12,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 
-fun CobaLogin(email: String, password: String, navController: NavController) {
+fun AuthInit(email: String, password: String, navController: NavController) {
     FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
         .addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {

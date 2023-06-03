@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.oneplatform.obeng.R
-import com.oneplatform.obeng.navigation.Screen
+import com.oneplatform.obeng.navigation.NavScreen
 import com.oneplatform.obeng.ui.theme.splash_color
 import kotlinx.coroutines.delay
 
@@ -32,7 +32,7 @@ fun SplashScreen(navController: NavController) {
     LaunchedEffect(Unit) {
         delay(2000) // Simulate a delay for the splash screen
         navController.popBackStack()
-        navController.navigate(Screen.LoginScreen.route)
+        navController.navigate(NavScreen.LoginScreen.route)
     // Invoke the callback to navigate to the login screen after the delay
     }
 

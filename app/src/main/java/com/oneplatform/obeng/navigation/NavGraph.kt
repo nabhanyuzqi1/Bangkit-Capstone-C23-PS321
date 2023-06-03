@@ -4,37 +4,38 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.oneplatform.obeng.screen.HomeScreen
 import com.oneplatform.obeng.screen.LoginScreen
 import com.oneplatform.obeng.screen.SplashScreen
-import com.oneplatform.obeng.screen.components.RegisterForm.RegisterFormTechnician
-import com.oneplatform.obeng.screen.components.RegisterForm.RegisterFormUser
+import com.oneplatform.obeng.screen.technician.RegisterFormTechnician
+import com.oneplatform.obeng.screen.user.RegisterFormUser
+import com.oneplatform.obeng.screen.user.UserHomeScreen
 
 @Composable
 fun Navigation(){
     val navController = rememberNavController()
+
     NavHost(
         navController = navController,
-        startDestination = Screen.SplashScreen.route
+        startDestination = NavScreen.SplashScreen.route
     ){
-        composable(Screen.SplashScreen.route){
+        composable(NavScreen.SplashScreen.route){
             SplashScreen(navController = navController)
         }
 
-        composable(Screen.LoginScreen.route){
+        composable(NavScreen.LoginScreen.route){
             LoginScreen(navController = navController)
         }
 
-        composable(Screen.RegisterUserScreen.route){
+        composable(NavScreen.RegisterUserScreen.route){
             RegisterFormUser(navController = navController)
         }
 
-        composable(Screen.RegisterTechnicianScreen.route){
+        composable(NavScreen.RegisterTechnicianScreen.route){
             RegisterFormTechnician(navController = navController)
         }
 
-        composable(Screen.HomeScreen.route){
-            HomeScreen(navController = navController)
+        composable(NavScreen.HomeScreen.route){
+            UserHomeScreen(navController = navController)
         }
 
     }

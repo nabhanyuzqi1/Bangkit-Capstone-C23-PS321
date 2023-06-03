@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,11 +52,13 @@ import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.dark_gray
 import com.oneplatform.obeng.ui.theme.gray
 import com.oneplatform.obeng.ui.theme.light_gray
-import com.oneplatform.obeng.utils.CobaLogin
+import com.oneplatform.obeng.utils.AuthInit
 
 @Composable
 fun LoginScreen(navController: NavController) {
-    ObengTheme() {
+    val currentRoute = navController.currentDestination?.route ?: ""
+
+    ObengTheme(currentRoute = currentRoute) {
         val loginPages = listOf("Customer", "Technician")
         val selectedTabIndex = rememberSaveable { mutableStateOf(0) }
         Column(modifier = Modifier.fillMaxSize()) {
@@ -204,7 +205,7 @@ fun CustomerLoginPage(navController: NavController) {
                             onClick = {
                                 //navController.popBackStack()
                                 //navController.navigate("home_screen")
-                                CobaLogin(email = "nabhan@example.com", password = "coba123", navController)
+                                AuthInit(email = "nabhan@example.com", password = "coba123", navController)
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Red100),
                             modifier = Modifier

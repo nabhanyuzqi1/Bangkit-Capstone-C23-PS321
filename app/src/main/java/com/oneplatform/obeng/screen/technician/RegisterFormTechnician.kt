@@ -1,4 +1,4 @@
-package com.oneplatform.obeng.screen.components.RegisterForm
+package com.oneplatform.obeng.screen.technician
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.oneplatform.obeng.R
+import com.oneplatform.obeng.screen.components.CustomDropdownMenu
+import com.oneplatform.obeng.screen.components.CustomStyleGroupedCheckbox
 import com.oneplatform.obeng.screen.components.CustomStyleTextField
 import com.oneplatform.obeng.screen.components.SmallBanner
 import com.oneplatform.obeng.ui.theme.Red100
@@ -39,7 +41,7 @@ import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.gray
 
 @Composable
-fun RegisterFormUser(navController: NavController){
+fun RegisterFormTechnician(navController: NavController){
     var pageCount = remember { mutableStateOf(0) }
     val listState = rememberLazyListState()
     LazyColumn(state = listState, modifier = Modifier
@@ -73,7 +75,7 @@ fun RegisterFormUser(navController: NavController){
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         }
-                ) {
+                ){
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -81,16 +83,15 @@ fun RegisterFormUser(navController: NavController){
                     ) {
 
                         Row(
-                            modifier = Modifier.fillMaxWidth().padding(top = 10.dp),
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center
-                        ) {
+                        ){
                             Column {
                                 Text(
                                     style = MaterialTheme.typography.titleMedium.copy(color = gray),
                                     fontWeight = FontWeight.Bold,
-                                    text = "User Registration"
-                                )
+                                    text = "Technician Registration")
 
                                 //Username
                                 Text(
@@ -157,13 +158,56 @@ fun RegisterFormUser(navController: NavController){
                                     VisualTransformation.None
                                 )
 
-                                //Button
+                                //Dropdown Skills
+                                Text(
+                                    text = "Skill",
+                                    style = MaterialTheme.typography.labelSmall.copy(color = gray),
+                                    modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
+                                )
+                                CustomDropdownMenu("Choose Skill", R.drawable.ic_flat_flower, VisualTransformation.None)
+
+                                //Certification
+                                Text(
+                                    text = "Certification Link",
+                                    style = MaterialTheme.typography.labelSmall.copy(color = gray),
+                                    modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
+                                )
+                                CustomStyleTextField(
+                                    "Certification Link",
+                                    R.drawable.ic_checklist,
+                                    KeyboardType.Text,
+                                    VisualTransformation.None
+                                )
+
+                                //Portofolio
+                                Text(
+                                    text = "Portofolio Link",
+                                    style = MaterialTheme.typography.labelSmall.copy(color = gray),
+                                    modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
+                                )
+                                CustomStyleTextField(
+                                    "Portofolio Link",
+                                    R.drawable.ic_document,
+                                    KeyboardType.Text,
+                                    VisualTransformation.None
+                                )
+
+                                //Jenis Keahlian
+                                Text(
+                                    text = "Skill Category",
+                                    style = MaterialTheme.typography.labelSmall.copy(color = gray),
+                                    modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
+                                )
+                                CustomStyleGroupedCheckbox(
+                                    mItemsList = listOf("Mesin", "Ban", "Bodi Kendaraan", "Interior", "Oli")
+                                )
+
                                 //Button Register
                                 Button(
                                     onClick = {},
                                     colors = ButtonDefaults.buttonColors(containerColor = Red100),
                                     modifier = Modifier
-                                        .padding(top = 60.dp, bottom = 34.dp)
+                                        .padding(top = 30.dp, bottom = 34.dp)
                                         .align(Alignment.CenterHorizontally)
                                         .fillMaxWidth(),
                                     shape = RoundedCornerShape(16.dp)
@@ -186,6 +230,6 @@ fun RegisterFormUser(navController: NavController){
 
 @Preview(showBackground = true)
 @Composable
-fun RegisterFormUserPreview(){
-   // RegisterFormUser()
+fun RegisterFormTechnicianPreview(){
+    //RegisterFormTechnician()
 }
