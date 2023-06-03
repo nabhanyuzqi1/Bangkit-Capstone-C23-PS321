@@ -13,5 +13,8 @@ COPY main.py /app/main.py
 # Install dependencies
 RUN pip install flask
 
+# Expose 8080 port
+EXPOSE 8080
+
 # Run the application
 CMD ["python", "/app/main.py"]
