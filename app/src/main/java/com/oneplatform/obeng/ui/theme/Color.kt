@@ -18,3 +18,10 @@ val splash_color = Color(0xFFFF5757)
 val secondColor = Color(0xFFF79009)
 val black = Color(0xFF1E1E1E)
 val green = Color(0xFF039855)
+
+
+//figma asset
+val thirdColor = Color(0xFFF79009)
+val black90 = Color(0xFF1E1E1E)
+val green100 = Color(0xFF039855)
+val primaryFigma = Color(0xFF89010A)

@@ -2,10 +2,13 @@
 
 package com.oneplatform.obeng.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.screen.components.CustomStyleTextField
 import com.oneplatform.obeng.screen.components.HeaderView
@@ -93,11 +97,11 @@ fun LoginScreen(navController: NavController) {
 @Composable
 fun CustomerLoginPage(navController: NavController) {
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(White10),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         item {
-            ConstraintLayout {
+            ConstraintLayout (modifier = Modifier.fillMaxHeight()){
                 val (image, loginForm) = createRefs()
                 Box(
                     contentAlignment = Alignment.Center,
@@ -444,6 +448,6 @@ fun LoginScreenHeader() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    //LoginScreen(navController)
+    LoginScreen(navController = rememberNavController())
 }
 

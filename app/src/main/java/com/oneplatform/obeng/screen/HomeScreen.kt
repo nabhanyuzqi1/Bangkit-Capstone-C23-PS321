@@ -40,7 +40,9 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.R
+import com.oneplatform.obeng.model.BottomBarScreen
 import com.oneplatform.obeng.model.Technician
+import com.oneplatform.obeng.screen.components.BottomNavigation
 import com.oneplatform.obeng.screen.components.HomeScreen.HomeScreenHeader
 import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.orange
@@ -95,6 +97,8 @@ fun HomeScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.padding(10.dp))
                     TechnicianSection(navController)
+
+                    BottomNavigation()
                 }
             }
 

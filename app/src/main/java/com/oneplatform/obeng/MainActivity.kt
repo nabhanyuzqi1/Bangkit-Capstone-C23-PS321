@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.oneplatform.obeng.navigation.Navigation
 import com.oneplatform.obeng.ui.theme.ObengTheme
+import com.oneplatform.obeng.utils.RecommendationModel
 
 class MainActivity : ComponentActivity() {
   
@@ -53,6 +54,7 @@ fun FirebaseAuthStatus() {
         Surface(color = MaterialTheme.colorScheme.background) {
            // FirebaseAuthStatus()
             //LoginTest(navController = navController)
+            RecommendationModel()
             Navigation()
         }
     }
