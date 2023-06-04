@@ -15,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // Example buildConfigField
+        buildConfigField "boolean", "IS_DEBUG", "true"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
@@ -45,6 +47,7 @@ android {
     }
     buildFeatures {
         compose true
+        buildConfig true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.7'

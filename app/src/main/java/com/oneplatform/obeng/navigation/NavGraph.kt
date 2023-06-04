@@ -5,9 +5,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.screen.LoginScreen
+import com.oneplatform.obeng.screen.NotificationScreen
+import com.oneplatform.obeng.screen.OrderScreen
+import com.oneplatform.obeng.screen.SettingScreen
 import com.oneplatform.obeng.screen.SplashScreen
 import com.oneplatform.obeng.screen.technician.RegisterFormTechnician
 import com.oneplatform.obeng.screen.user.RegisterFormUser
+import com.oneplatform.obeng.screen.user.TechDetail
 import com.oneplatform.obeng.screen.user.UserHomeScreen
 
 @Composable
@@ -36,6 +40,22 @@ fun Navigation(){
 
         composable(NavScreen.HomeScreen.route){
             UserHomeScreen(navController = navController)
+        }
+
+        composable(NavScreen.TechDetail.route){
+            TechDetail(navController = navController)
+        }
+
+        composable(NavScreen.OrderScreen.route){
+            OrderScreen(navController = navController)
+        }
+
+        composable(NavScreen.SettingScreen.route){
+            SettingScreen(navController = navController)
+        }
+
+        composable(NavScreen.NotificationScreen.route){
+            NotificationScreen(navController = navController)
         }
 
     }

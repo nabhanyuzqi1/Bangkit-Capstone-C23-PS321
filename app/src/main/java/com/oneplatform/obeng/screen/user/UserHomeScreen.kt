@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode.Companion.Screen
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +40,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.model.bottomNavItems
+import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.orange
 import com.oneplatform.obeng.ui.theme.primary
 
@@ -143,9 +145,9 @@ fun TechnicianSection(navController: NavController) {
                 .weight(0.5f)
                 .wrapContentHeight()
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color.White)
+                .background(White10)
                 .clickable {
-                    //navController.navigate(Screen.DetailsScreen.route)
+                    navController.navigate("tech_detail")
                 }
         ) {
             Column(
@@ -222,7 +224,7 @@ fun TechnicianSection(navController: NavController) {
                 .weight(0.5f)
                 .wrapContentHeight()
                 .clip(RoundedCornerShape(16.dp))
-                .background(Color.White)
+                .background(White10)
         ) {
             Column(
                 modifier = Modifier
