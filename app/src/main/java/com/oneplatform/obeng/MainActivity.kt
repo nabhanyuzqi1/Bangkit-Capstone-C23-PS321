@@ -38,6 +38,7 @@ fun FirebaseAuthStatus() {
 
     @Composable
     fun ObengComposeUIMain(){
+        RecommendationModel()
         val navController = rememberNavController()
         val currentRoute = navController.currentDestination?.route ?: "splash_screen"
 

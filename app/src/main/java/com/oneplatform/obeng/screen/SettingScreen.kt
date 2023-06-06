@@ -1,10 +1,26 @@
 package com.oneplatform.obeng.screen
 
+import android.annotation.SuppressLint
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.oneplatform.obeng.screen.components.UserhomeNavbar
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingScreen(navController: NavController){
-    Text(text = "Ini halaman Setting")
+
+    Scaffold(topBar = {
+
+    },
+        bottomBar = {
+            UserhomeNavbar(navController = navController)
+        },
+        content =  {
+
+        }
+    )
 }
