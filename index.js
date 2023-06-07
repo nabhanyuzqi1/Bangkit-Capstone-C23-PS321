@@ -296,11 +296,12 @@ app.post('/api/feedback', async (req, res) => {
   try {
     const FeedbackRef = db.collection('serviceRequests').doc();
     const IdFeedback = FeedbackRef.id; // Menggunakan ID dokumen sebagai ID feedback
-    const { pesan } = req.body;
+    const { pesan, rating } = req.body; // Menambahkan rating dari body permintaan
 
     const feedback = {
       IdFeedback,
       pesan,
+      rating,
       timestamp: admin.firestore.FieldValue.serverTimestamp()
     };
 
@@ -317,6 +318,7 @@ app.post('/api/feedback', async (req, res) => {
     });
   }
 });
+
 
 // Mendapatkan semua feedback
 app.get('/api/feedback', (req, res) => {
