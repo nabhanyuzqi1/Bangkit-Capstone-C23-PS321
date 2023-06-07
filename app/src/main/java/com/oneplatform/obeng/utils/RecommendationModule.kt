@@ -1,6 +1,7 @@
 package com.oneplatform.obeng.utils
 
 import android.util.Log
+import androidx.compose.runtime.Composable
 import com.google.firebase.ml.common.modeldownload.FirebaseModelDownloadConditions
 import com.google.firebase.ml.common.modeldownload.FirebaseModelManager
 import com.google.firebase.ml.custom.FirebaseCustomRemoteModel
@@ -12,23 +13,20 @@ import com.google.firebase.ml.custom.FirebaseModelInterpreterOptions
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
+
+@Composable
 fun RecommendationModel(){
     ModelStream()
 
 }
 
-
-fun ModelStream(){
-    val remoteModel = FirebaseCustomRemoteModel.Builder("recommendation").build()
+fun ModelStream() {
+    val remoteModel = FirebaseCustomRemoteModel.Builder("recmm").build()
     val conditions = FirebaseModelDownloadConditions.Builder().build()
     val inputOutputOptions = FirebaseModelInputOutputOptions.Builder()
         .setInputFormat(0, FirebaseModelDataType.FLOAT32, intArrayOf(1, 6))
-        .setOutputFormat(0, FirebaseModelDataType.FLOAT32, intArrayOf(1)) // Modify the output shape if needed
+        .setOutputFormat(0, FirebaseModelDataType.FLOAT32, intArrayOf(1,5)) // Modify the output shape if needed
         .build()
-
-
-
-
 
     FirebaseModelManager.getInstance().download(remoteModel, conditions)
         .addOnCompleteListener { task ->
@@ -38,11 +36,11 @@ fun ModelStream(){
                 // You can now use the model for inference
 
                 // Create an input array
-                val user_id = 2
+                val user_id = 8
                 val needed_mesin = 1
                 val needed_ban = 0
                 val needed_bodi = 0
-                val needed_interior = 1
+                val needed_interior = 0
                 val needed_oli = 0
 
                 val inputArray = floatArrayOf(
@@ -60,8 +58,6 @@ fun ModelStream(){
                     .add(buffer)
                     .build()
 
-
-
                 val options = FirebaseModelInterpreterOptions.Builder(remoteModel).build()
                 val interpreter = FirebaseModelInterpreter.getInstance(options)
 
@@ -70,20 +66,16 @@ fun ModelStream(){
                         // Process the inference result
                         val output = result.getOutput<Array<FloatArray>>(0)
                         // Handle the output values
-                        Log.d("Output Model: ", output.toString())
+                        Log.d("Output Model: ", output.contentDeepToString())
                     }
                     ?.addOnFailureListener { e ->
                         // Handle the inference failure
                         Log.e("Inference Failure", "Failed to run the interpreter", e)
                     }
-
-
-
             } else {
                 // Model download failed
                 val exception = task.exception
                 Log.d("Model Exception", exception.toString())
             }
         }
-
 }

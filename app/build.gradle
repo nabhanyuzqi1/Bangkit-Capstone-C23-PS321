@@ -48,6 +48,7 @@ android {
     buildFeatures {
         compose true
         buildConfig true
+        mlModelBinding true
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.7'
@@ -60,7 +61,7 @@ android {
 }
 
 dependencies {
-    //Firebase ML dependency
+//Firebase ML dependency
     implementation 'com.google.firebase:firebase-ml-model-interpreter:22.0.4'
 
     // Firebase ML Kit dependencies
@@ -69,7 +70,7 @@ dependencies {
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
-   //implementation 'com.google.firebase:firebase-admin:8.0.0'
+    //implementation 'com.google.firebase:firebase-admin:8.0.0'
 
     // Declare the dependencies for the desired Firebase products without specifying versions
     // For example, declare the dependencies for Firebase Authentication and Cloud Firestore
