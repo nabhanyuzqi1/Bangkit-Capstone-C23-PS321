@@ -291,12 +291,20 @@ app.get('/api/service-requests/:idPesanan', async (req, res) => {
 });
 
 
-// Upload feedback
+// Upload feedback dan rating
 app.post('/api/feedback', async (req, res) => {
   try {
     const FeedbackRef = db.collection('serviceRequests').doc();
     const IdFeedback = FeedbackRef.id; // Menggunakan ID dokumen sebagai ID feedback
     const { pesan, rating } = req.body; // Menambahkan rating dari body permintaan
+
+    // Validasi rating
+    if (rating < 1 || rating > 5) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Rating must be between 1 and 5.'
+      });
+    }
 
     const feedback = {
       IdFeedback,
@@ -318,6 +326,7 @@ app.post('/api/feedback', async (req, res) => {
     });
   }
 });
+
 
 
 // Mendapatkan semua feedback
