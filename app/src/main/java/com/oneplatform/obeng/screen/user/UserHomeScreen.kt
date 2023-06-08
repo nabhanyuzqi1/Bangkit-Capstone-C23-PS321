@@ -89,6 +89,7 @@ fun UserHomeScreen(navController: NavController ) {
                         TechnicianSection(navController)
                         Spacer(modifier = Modifier.padding(10.dp))
                         TechnicianSection(navController)
+                        Spacer(modifier = Modifier.padding(30.dp))
                     }
                 }
             }
