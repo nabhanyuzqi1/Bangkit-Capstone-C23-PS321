@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class
+)
 
 package com.oneplatform.obeng.screen.components
 
@@ -6,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -44,46 +47,72 @@ import com.oneplatform.obeng.ui.theme.dark_gray
 import com.oneplatform.obeng.ui.theme.gray
 
 @Composable
-fun TopBarBack(navController: NavController) {
-    IconButton(onClick = { navController.navigateUp() }) {
-        Icon(
-            imageVector = Icons.Default.KeyboardArrowLeft,
-            contentDescription = "On Back",
-            tint = dark_gray,
-            modifier = Modifier.size(32.dp, 32.dp)
-
-        )
-    }
-}
-@Composable
 fun CustomTopBarTitleBack(navController: NavController, title: String, withBack: Boolean) {
-    val useBack = remember{ mutableStateOf(false)}
     Row(
         modifier = Modifier
-            .fillMaxWidth().height(50.dp),
-        horizontalArrangement = Arrangement.Start,
+            .fillMaxWidth()
+            .height(50.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (withBack == useBack.value){
-            //no back button
-        } else{
-            TopBarBack(navController = navController)
+        if (withBack) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier) {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.Default.KeyboardArrowLeft,
+                            contentDescription = "On Back",
+                            tint = dark_gray,
+                            modifier = Modifier.size(32.dp, 32.dp)
+
+                        )
+                    }
+                }
+                Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier) {
+                    Text(
+                        text = title,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
+
+                Spacer(modifier = Modifier.size(46.dp, 46.dp))
+            }
+
+        } else {
+            Row(
+                modifier = Modifier.weight(1f),
+                horizontalArrangement = Arrangement.Center
+            ) {
+
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+            }
         }
 
-        Row (
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
 
-        ){
-            Text(text = title, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-        }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 fun CustomTopBarBackPreview(){
+    CustomTopBarTitleBack(navController = rememberNavController(), "Preview", withBack = true)
+}
+@Preview(showBackground = true)
+@Composable
+fun CustomTopBarBackPreview2(){
     CustomTopBarTitleBack(navController = rememberNavController(), "Preview", withBack = false)
 }
 

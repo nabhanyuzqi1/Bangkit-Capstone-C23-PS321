@@ -18,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.model.CardOrderTypes
 import com.oneplatform.obeng.screen.components.CardHistoryOrder
 import com.oneplatform.obeng.screen.components.CustomTopBarTitleBack
-import com.oneplatform.obeng.screen.components.UserhomeNavbar
+import com.oneplatform.obeng.screen.components.UserHomeNavbar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -43,7 +43,7 @@ fun OrderScreen(navController: NavController){
         },
 
         bottomBar = {
-            UserhomeNavbar(navController = navController)
+            UserHomeNavbar(navController = navController)
         },
         content =  {
             Box(modifier = Modifier.padding(top = 56.dp, bottom = 56.dp)) {

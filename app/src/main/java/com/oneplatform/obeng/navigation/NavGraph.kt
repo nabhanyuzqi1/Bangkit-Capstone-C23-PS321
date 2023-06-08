@@ -10,8 +10,10 @@ import com.oneplatform.obeng.screen.OrderScreen
 import com.oneplatform.obeng.screen.SettingScreen
 import com.oneplatform.obeng.screen.SplashScreen
 import com.oneplatform.obeng.screen.technician.RegisterFormTechnician
+import com.oneplatform.obeng.screen.user.RecommendationResult
 import com.oneplatform.obeng.screen.user.RegisterFormUser
 import com.oneplatform.obeng.screen.user.TechDetail
+import com.oneplatform.obeng.screen.user.TechRecommendation
 import com.oneplatform.obeng.screen.user.UserHomeScreen
 
 @Composable
@@ -56,6 +58,14 @@ fun Navigation(){
 
         composable(NavScreen.NotificationScreen.route){
             NotificationScreen(navController = navController)
+        }
+        
+        composable(NavScreen.TechRecommendation.route){
+            TechRecommendation(navController = navController)
+        }
+        
+        composable(NavScreen.RecommendationResult.route){
+            RecommendationResult(navController = navController)
         }
 
     }

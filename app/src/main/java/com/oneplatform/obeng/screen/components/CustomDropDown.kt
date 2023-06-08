@@ -1,13 +1,11 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.oneplatform.obeng.screen.components
-import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,7 +18,6 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,12 +26,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
@@ -47,14 +42,12 @@ import com.oneplatform.obeng.ui.theme.gray
 
 @Composable
 fun CustomDropdownMenu(
-    placeHolder: String,
     leadingIconId: Int,
+    dropDownList: Array<String>,
     visualTransformation: VisualTransformation
 ) {
-    val context = LocalContext.current
-    val coffeeDrinks = arrayOf("Choose a Skill", "Mobil", "Motor")
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(coffeeDrinks[0]) }
+    var selectedText by remember { mutableStateOf(dropDownList[0]) }
 
     Box(
         modifier = Modifier
@@ -116,7 +109,7 @@ fun CustomDropdownMenu(
                 expanded = expanded,
                 onDismissRequest = { expanded = false }
             ) {
-                coffeeDrinks.forEach { item ->
+                dropDownList.forEach { item ->
                     DropdownMenuItem(
                         text = { Text(text = item) },
                         onClick = {
@@ -133,5 +126,7 @@ fun CustomDropdownMenu(
 @Preview(showBackground = true)
 @Composable
 fun CustomDropDownPreview(){
-    CustomDropdownMenu("Choose Skill", R.drawable.ic_flat_flower, VisualTransformation.None)
+    CustomDropdownMenu(dropDownList = arrayOf("Choose a Skill", "Mobil", "Motor"),
+        leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None
+    )
 }

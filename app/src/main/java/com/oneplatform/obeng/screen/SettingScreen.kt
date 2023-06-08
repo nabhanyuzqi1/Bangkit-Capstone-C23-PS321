@@ -6,7 +6,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.oneplatform.obeng.screen.components.CustomTopBarTitleBack
-import com.oneplatform.obeng.screen.components.UserhomeNavbar
+import com.oneplatform.obeng.screen.components.UserHomeNavbar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,7 +17,7 @@ fun SettingScreen(navController: NavController){
         CustomTopBarTitleBack(navController = navController, title = pageTitle, withBack = false)
     },
         bottomBar = {
-            UserhomeNavbar(navController = navController)
+            UserHomeNavbar(navController = navController)
         },
         content =  {
 

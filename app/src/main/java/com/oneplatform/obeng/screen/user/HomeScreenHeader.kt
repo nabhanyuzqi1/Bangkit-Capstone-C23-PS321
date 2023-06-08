@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+
 package com.oneplatform.obeng.screen.user
 
 import androidx.compose.foundation.background
@@ -11,9 +13,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,28 +28,31 @@ import androidx.compose.ui.unit.dp
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.screen.components.CustomAppSearchBar
 import com.oneplatform.obeng.ui.theme.gray
+import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreenHeader() {
-    Box(modifier = Modifier.fillMaxWidth().height(64.dp)){
-        HeaderUserHome()
+fun HomeScreenHeader(drawerState: DrawerState) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(64.dp)){
+        HeaderUserHome(drawerState = drawerState)
     }
 }
 
-
-
-
 @Composable
-fun HeaderUserHome() {
-
+fun HeaderUserHome(drawerState: DrawerState) {
+    val scope = rememberCoroutineScope()
     Row(
         modifier = Modifier
-            .fillMaxWidth().background(Color.White)
+            .fillMaxWidth()
+            .background(Color.White)
             .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { }) {
+        IconButton(onClick = {
+            scope.launch { drawerState.open() }
+        }) {
             Icon(
                 modifier = Modifier.size(32.dp, 32.dp),
                 imageVector = Icons.Default.Menu,
@@ -52,23 +60,11 @@ fun HeaderUserHome() {
                 tint = gray
             )
         }
-/*
-        Text(
-            text = "Dashboard",
-            color = Color.White,
-            modifier = Modifier.padding(start = 16.dp),
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-            fontSize = 16.sp,
-        )*/
-
         CustomAppSearchBar(
             placeHolder = "Cari Teknisi...",
             leadingIconId = R.drawable.ic_search,
             keyboardType = KeyboardType.Text,
-            //visualTransformation = VisualTransformation.None
         )
-
         IconButton(onClick = { }) {
             Icon(
                 imageVector = Icons.Default.Search,
@@ -76,12 +72,12 @@ fun HeaderUserHome() {
                 tint = gray
             )
         }
-
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenHeaderPreview(){
-    HomeScreenHeader()
 }

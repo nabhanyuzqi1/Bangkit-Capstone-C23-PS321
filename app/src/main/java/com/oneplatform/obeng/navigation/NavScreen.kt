@@ -12,4 +12,7 @@ sealed class NavScreen (val route: String){
 
     object NotificationScreen : NavScreen("notification_screen")
 
+    object TechRecommendation : NavScreen("rec_tech")
+    object RecommendationResult : NavScreen("rec_result")
+
 }

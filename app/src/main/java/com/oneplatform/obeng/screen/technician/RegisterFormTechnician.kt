@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.screen.components.CustomDropdownMenu
 import com.oneplatform.obeng.screen.components.CustomStyleGroupedCheckbox
@@ -83,7 +84,9 @@ fun RegisterFormTechnician(navController: NavController){
                     ) {
 
                         Row(
-                            modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 10.dp),
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center
                         ){
@@ -164,7 +167,9 @@ fun RegisterFormTechnician(navController: NavController){
                                     style = MaterialTheme.typography.labelSmall.copy(color = gray),
                                     modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
                                 )
-                                CustomDropdownMenu("Choose Skill", R.drawable.ic_flat_flower, VisualTransformation.None)
+                                CustomDropdownMenu(dropDownList = arrayOf("Choose a Skill", "Mobil", "Motor"),
+                                    leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None
+                                )
 
                                 //Certification
                                 Text(
@@ -231,5 +236,5 @@ fun RegisterFormTechnician(navController: NavController){
 @Preview(showBackground = true)
 @Composable
 fun RegisterFormTechnicianPreview(){
-    //RegisterFormTechnician()
+    RegisterFormTechnician(navController = rememberNavController())
 }
