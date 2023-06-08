@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.oneplatform.obeng.model.techDummyData
 import com.oneplatform.obeng.screen.LoginScreen
 import com.oneplatform.obeng.screen.NotificationScreen
 import com.oneplatform.obeng.screen.OrderScreen
@@ -45,7 +46,7 @@ fun Navigation(){
         }
 
         composable(NavScreen.TechDetail.route){
-            TechDetail(navController = navController)
+            TechDetail(navController = navController, cardTechStats = techDummyData[0])
         }
 
         composable(NavScreen.OrderScreen.route){

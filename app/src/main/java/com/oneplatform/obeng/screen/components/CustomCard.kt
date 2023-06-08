@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,6 +45,8 @@ import androidx.compose.ui.unit.sp
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.model.CardOrderStats
 import com.oneplatform.obeng.model.CardOrderTypes
+import com.oneplatform.obeng.model.Technician
+import com.oneplatform.obeng.model.techDummyData
 import com.oneplatform.obeng.ui.theme.primary
 import com.oneplatform.obeng.ui.theme.third
 
@@ -210,6 +213,64 @@ fun CardHistoryOrder(cardOrderStats: CardOrderStats) {
     }
 }
 
+@Composable
+fun CardTechName(cardTechStats: Technician){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp)
+            .clickable { },
+        colors = CardDefaults.cardColors(third)
+    ) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+
+            Column(
+                modifier = Modifier
+                    .padding(15.dp)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    fontWeight = FontWeight.W900,
+                                    color = Color(0xFF4552B8)
+                                )
+                            ) {
+                                append(cardTechStats.name)
+                            }
+                        }
+                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Keahlian ${cardTechStats.jenisKeahlian}"
+                        )
+                        Text(text = "5.0")
+                    }
+                }
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text(text = "Keahlian")
+                    Text(text = cardTechStats.jenisKeahlian)
+                }
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text(text = "Alamat")
+                    Text(text = cardTechStats.alamat)
+                }
+
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CardTechNamePreview(){
+    CardTechName(techDummyData[0])
+}
 
 @Preview(showBackground = true)
 @Composable
