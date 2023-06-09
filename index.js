@@ -63,36 +63,45 @@ app.post('/api/users/register', (req, res) => {
     });
 });
 
-app.post('/api/technicians/register', (req, res) => {
-  const { nama, email, password, noHandphone, keahlian, linkSertifikasi, linkPortofolio, jenisKeahlian } = req.body;
+app.post("/api/technicians/register", (req, res) => {
+  const {
+    nama,
+    email,
+    password,
+    noHandphone,
+    keahlian,
+    linkSertifikasi,
+    linkPortofolio,
+    jenisKeahlian,
+  } = req.body;
 
   admin
     .auth()
     .createUser({
       email,
-      password
+      password,
     })
     .then((userRecord) => {
       const technician = {
-        id: userRecord.uid,
-        nama, 
+        technicianId: userRecord.uid,
+        nama,
         email,
         noHandphone,
         keahlian,
         linkSertifikasi,
         linkPortofolio,
         jenisKeahlian,
-        role: 'technician' 
+        role: "technician",
       };
 
       return techniciansCollection.doc(userRecord.uid).set(technician);
     })
     .then(() => {
-      res.json({ message: 'Technician registered successfully' });
+      res.json({ message: "Technician registered successfully" });
     })
     .catch((error) => {
-      console.error('Error registering technician:', error);
-      res.status(500).json({ error: 'Failed to register technician' });
+      console.error("Error registering technician:", error);
+      res.status(500).json({ error: "Failed to register technician" });
     });
 });
 
@@ -299,64 +308,109 @@ app.get('/api/service-requests/:idPesanan', async (req, res) => {
   }
 });
 
+// API Penerimaan Pekerjaan
+app.patch("/api/service-requests/:requestId/penerimaan", (req, res) => {
+  const { requestId } = req.params;
+  const { acceptanceStatus } = req.body;
 
-// Upload feedback dan rating
-app.post('/api/feedback', async (req, res) => {
-  try {
-    const FeedbackRef = db.collection('serviceRequests').doc();
-    const IdFeedback = FeedbackRef.id; // Menggunakan ID dokumen sebagai ID feedback
-    const { pesan, rating } = req.body; // Menambahkan rating dari body permintaan
+  const serviceRequestRef = db.collection("serviceRequests").doc(requestId);
 
-    // Validasi rating
-    if (rating < 1 || rating > 5) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Rating must be between 1 and 5.'
+  serviceRequestRef
+    .update({ acceptanceStatus })
+    .then(() => {
+      res.json({
+        status: "success",
+        message: "Penerimaan pekerjaan berhasil diperbarui",
       });
+    })
+    .catch((error) => {
+      console.error("Error memperbarui penerimaan pekerjaan:", error);
+      res.status(500).json({ error: "Gagal memperbarui penerimaan pekerjaan" });
+    });
+});
+
+// Update feedback dan rating untuk seorang teknisi
+app.patch("/api/technicians/:technicianId/feedback", async (req, res) => {
+  try {
+    const { technicianId } = req.params;
+    const { pesan, rating } = req.body;
+
+    // Validasi rating agar berada dalam rentang 1 hingga 5
+    if (rating < 1 || rating > 5) {
+      return res
+        .status(400)
+        .json({ error: "Rating harus berada dalam rentang 1 hingga 5" });
     }
 
+    // Dapatkan referensi dokumen teknisi
+    const technicianRef = techniciansCollection.doc(technicianId);
+
+    // Periksa apakah teknisi tersebut ada
+    const technicianDoc = await technicianRef.get();
+    if (!technicianDoc.exists) {
+      return res.status(404).json({ error: "Teknisi tidak ditemukan" });
+    }
+
+    // Buat objek feedback baru dengan ID yang dihasilkan otomatis oleh Firestore
     const feedback = {
-      IdFeedback,
       pesan,
       rating,
-      timestamp: admin.firestore.FieldValue.serverTimestamp()
+      timestamp: admin.firestore.FieldValue.serverTimestamp(),
     };
 
-    const docRef = await feedbacksCollection.add(feedback);
+    // Tambahkan feedback ke sub-koleksi "feedbacks" pada dokumen teknisi
+    const feedbackRef = await technicianRef
+      .collection("feedbacks")
+      .add(feedback);
 
-    res.status(200).json({
-      status: 'success',
-      feedbackId: docRef.id
+    // Perbarui feedbackId pada dokumen teknisi
+    await technicianRef.update({
+      feedbackId: feedbackRef.id,
+    });
+
+    res.json({
+      status: "sukses",
+      pesan: "Feedback dan rating berhasil diperbarui",
     });
   } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: 'Failed to upload feedback.'
-    });
+    console.error(
+      "Terjadi kesalahan saat memperbarui feedback dan rating:",
+      error
+    );
+    res.status(500).json({ error: "Gagal memperbarui feedback dan rating" });
   }
 });
 
+// Mengambil feedback data teknisi berdasarkan id teknisi
+app.get("/api/technicians/:technicianId/feedbacks", async (req, res) => {
+  try {
+    const { technicianId } = req.params;
 
+    // Dapatkan referensi koleksi feedbacks dari teknisi yang sesuai
+    const feedbacksSnapshot = await techniciansCollection
+      .doc(technicianId)
+      .collection("feedbacks")
+      .get();
 
-// Mendapatkan semua feedback
-app.get('/api/feedback', (req, res) => {
-  feedbacksCollection
-    .orderBy('timestamp', 'desc')
-    .get()
-    .then((snapshot) => {
-      const feedbacks = [];
-      snapshot.forEach((doc) => {
-        const feedback = doc.data();
-        feedback.idFeedback = doc.id; // Menambahkan ID feedback ke dalam objek feedback
-        feedbacks.push(feedback);
-      });
-      res.json(feedbacks);
-    })
-    .catch((error) => {
-      console.error('Error getting feedbacks:', error);
-      res.status(500).json({ error: 'Failed to get feedbacks' });
+    // Buat array untuk menyimpan feedback
+    const feedbacks = [];
+
+    // Loop melalui setiap dokumen feedback dan tambahkan ke array feedbacks
+    feedbacksSnapshot.forEach((doc) => {
+      const feedback = doc.data();
+      feedbacks.push(feedback);
     });
+
+    res.json({
+      status: "sukses",
+      feedbacks,
+    });
+  } catch (error) {
+    console.error("Terjadi kesalahan saat mendapatkan feedback:", error);
+    res.status(500).json({ error: "Gagal mendapatkan feedback" });
+  }
 });
+
 
 // Mengunggah foto profil
 app.post('/api/users/upload-photo', upload.single('fotoProfil'), async (req, res) => {
