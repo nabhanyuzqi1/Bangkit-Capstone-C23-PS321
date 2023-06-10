@@ -1,47 +1,48 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const admin = require('firebase-admin');
+const express = require("express");
+const bodyParser = require("body-parser");
+const admin = require("firebase-admin");
 const { Storage } = require("@google-cloud/storage");
 const formidable = require("formidable");
 const UUID = require("uuid-v4");
-const multer = require('multer');
-const upload = multer({ dest: 'Obeng_images/' });
-const axios = require('axios');
-const { v4: uuidv4 } = require('uuid');
+const multer = require("multer");
+const upload = multer({ dest: "Obeng_images/" });
+const axios = require("axios");
+const { v4: uuidv4 } = require("uuid");
 
-
-const serviceAccount = require('./serviceAccountKey.json');
+const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 });
 
 const app = express();
 app.use(bodyParser.json());
 
 const db = admin.firestore();
-const serviceRequestsCollection = admin.firestore().collection('service-requests');
-const usersCollection = admin.firestore().collection('users'); 
-const techniciansCollection = admin.firestore().collection('technicians'); 
-const feedbacksCollection = admin.firestore().collection('feedback'); 
+const serviceRequestsCollection = admin
+  .firestore()
+  .collection("service-requests");
+const usersCollection = admin.firestore().collection("users");
+const techniciansCollection = admin.firestore().collection("technicians");
+const feedbacksCollection = admin.firestore().collection("feedback");
 const storage = new Storage({
   keyFilename: "serviceAccountKey.json",
 });
 
 /// ----------------------Endpoint untuk mengunggah data profil user (users)---------------------
-app.post('/api/users/data', upload.single('fotoKTP'), async (req, res) => {
+app.post("/api/users/data", upload.single("fotoKTP"), async (req, res) => {
   try {
     const { nama, email, password, alamat, NIK } = req.body;
     const fotoKTP = req.file;
 
-    const bucket = storage.bucket('gs://loginsignup-auth-dc6a9.appspot.com');
+    const bucket = storage.bucket("gs://loginsignup-auth-dc6a9.appspot.com");
 
     // URL foto KTP yang diunggah
-    let fotoKTPUrl = '';
+    let fotoKTPUrl = "";
 
     if (fotoKTP) {
       let uuid = UUID();
       const downloadPath =
-        'https://firebasestorage.googleapis.com/v0/b/loginsignup-auth-dc6a9.appspot.com/o/';
+        "https://firebasestorage.googleapis.com/v0/b/loginsignup-auth-dc6a9.appspot.com/o/";
 
       const fotoKTPResponse = await bucket.upload(fotoKTP.path, {
         destination: `usersKTP/${fotoKTP.originalname}`,
@@ -57,7 +58,7 @@ app.post('/api/users/data', upload.single('fotoKTP'), async (req, res) => {
       fotoKTPUrl =
         downloadPath +
         encodeURIComponent(fotoKTPResponse[0].name) +
-        '?alt=media&token=' +
+        "?alt=media&token=" +
         uuid;
     }
 
@@ -74,20 +75,20 @@ app.post('/api/users/data', upload.single('fotoKTP'), async (req, res) => {
       alamat,
       NIK,
       fotoKTP: fotoKTPUrl,
-      role: 'user',
+      role: "user",
     };
 
     await usersCollection.doc(userId).set(user);
 
-    res.json({ message: 'User registered successfully' });
+    res.json({ message: "User registered successfully" });
   } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).json({ error: 'Failed to register user' });
+    console.error("Error registering user:", error);
+    res.status(500).json({ error: "Failed to register user" });
   }
 });
 
 ///------------------ Endpoint untuk memperbarui semua data profil user (users)-----------------
-app.put('/api/users/:userId', async (req, res) => {
+app.put("/api/users/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const updatedData = req.body;
@@ -96,93 +97,97 @@ app.put('/api/users/:userId', async (req, res) => {
     await userRef.update(updatedData);
 
     res.status(200).json({
-      status: 'success',
-      message: 'User profile updated successfully',
+      status: "success",
+      message: "User profile updated successfully",
     });
   } catch (error) {
     res.status(500).json({
-      status: 'error',
-      message: 'Failed to update user profile.',
+      status: "error",
+      message: "Failed to update user profile.",
     });
   }
 });
 
-/// ---------------Endpoint untuk mengunggah data profil teknisi (technicians)-------------------
-app.post('/api/technicians/data', upload.single('fotoKTP'), async (req, res) => {
-  try {
-    const {
-      nama,
-      email,
-      password,
-      noHandphone,
-      keahlian,
-      NIK,
-      linkSertifikasi,
-      linkPortofolio,
-      jenisKeahlian,
-    } = req.body;
-    const fotoKTP = req.file;
+/// ---------------Endpoint untuk mengunggah data teknisi (technicians)-------------------
+app.post(
+  "/api/technicians/data",
+  upload.single("fotoKTP"),
+  async (req, res) => {
+    try {
+      const {
+        nama,
+        email,
+        password,
+        noHandphone,
+        keahlian,
+        NIK,
+        linkSertifikasi,
+        linkPortofolio,
+        jenisKeahlian,
+      } = req.body;
+      const fotoKTP = req.file;
 
-    const userRecord = await admin.auth().createUser({
-      email,
-      password,
-    });
-
-    const technicianId = userRecord.uid;
-    const technician = {
-      technicianId,
-      nama,
-      email,
-      noHandphone,
-      keahlian,
-      NIK,
-      linkSertifikasi,
-      linkPortofolio,
-      jenisKeahlian,
-      role: 'technician',
-    };
-
-    const bucket = storage.bucket('gs://loginsignup-auth-dc6a9.appspot.com');
-
-    // URL foto KTP yang diunggah
-    let fotoKTPUrl = '';
-
-    if (fotoKTP) {
-      let uuid = UUID();
-      const downloadPath =
-        'https://firebasestorage.googleapis.com/v0/b/loginsignup-auth-dc6a9.appspot.com/o/';
-
-      const fotoKTPResponse = await bucket.upload(fotoKTP.path, {
-        destination: `techniciansKTP/${fotoKTP.originalname}`,
-        resumable: true,
-        metadata: {
-          metadata: {
-            firebaseStorageDownloadTokens: uuid,
-          },
-        },
+      const userRecord = await admin.auth().createUser({
+        email,
+        password,
       });
 
-      // URL foto KTP
-      fotoKTPUrl =
-        downloadPath +
-        encodeURIComponent(fotoKTPResponse[0].name) +
-        '?alt=media&token=' +
-        uuid;
+      const technicianId = userRecord.uid;
+      const technician = {
+        technicianId,
+        nama,
+        email,
+        noHandphone,
+        keahlian,
+        NIK,
+        linkSertifikasi,
+        linkPortofolio,
+        jenisKeahlian,
+        role: "technician",
+      };
+
+      const bucket = storage.bucket("gs://loginsignup-auth-dc6a9.appspot.com");
+
+      // URL foto KTP yang diunggah
+      let fotoKTPUrl = "";
+
+      if (fotoKTP) {
+        let uuid = UUID();
+        const downloadPath =
+          "https://firebasestorage.googleapis.com/v0/b/loginsignup-auth-dc6a9.appspot.com/o/";
+
+        const fotoKTPResponse = await bucket.upload(fotoKTP.path, {
+          destination: `techniciansKTP/${fotoKTP.originalname}`,
+          resumable: true,
+          metadata: {
+            metadata: {
+              firebaseStorageDownloadTokens: uuid,
+            },
+          },
+        });
+
+        // URL foto KTP
+        fotoKTPUrl =
+          downloadPath +
+          encodeURIComponent(fotoKTPResponse[0].name) +
+          "?alt=media&token=" +
+          uuid;
+      }
+
+      technician.fotoKTP = fotoKTPUrl;
+
+      await techniciansCollection.doc(userRecord.uid).set(technician);
+
+      res.json({ message: "Technician registered successfully" });
+    } catch (error) {
+      console.error("Error registering technician:", error);
+      res.status(500).json({ error: "Failed to register technician" });
     }
-
-    technician.fotoKTP = fotoKTPUrl;
-
-    await techniciansCollection.doc(userRecord.uid).set(technician);
-
-    res.json({ message: 'Technician registered successfully' });
-  } catch (error) {
-    console.error('Error registering technician:', error);
-    res.status(500).json({ error: 'Failed to register technician' });
   }
-});
+);
 
 ///----------- Endpoint untuk memperbarui semua data profil teknisi (technicians) --------------
-app.put('/api/technicians/:technicianId', async (req, res) => {
+app.put("/api/technicians/:technicianId", async (req, res) => {
   try {
     const technicianId = req.params.technicianId;
     const updatedData = req.body;
@@ -191,19 +196,19 @@ app.put('/api/technicians/:technicianId', async (req, res) => {
     await technicianRef.update(updatedData);
 
     res.status(200).json({
-      status: 'success',
-      message: 'Technician profile updated successfully',
+      status: "success",
+      message: "Technician profile updated successfully",
     });
   } catch (error) {
     res.status(500).json({
-      status: 'error',
-      message: 'Failed to update technician profile.',
+      status: "error",
+      message: "Failed to update technician profile.",
     });
   }
 });
 
 ///---------------- Endpoint untuk mengambil semua data pengguna (users)----------------------
-app.get('/api/users', (req, res) => {
+app.get("/api/users", (req, res) => {
   usersCollection
     .get()
     .then((snapshot) => {
@@ -214,13 +219,13 @@ app.get('/api/users', (req, res) => {
       res.json(users);
     })
     .catch((error) => {
-      console.error('Error getting users:', error);
-      res.status(500).json({ error: 'Failed to get users' });
+      console.error("Error getting users:", error);
+      res.status(500).json({ error: "Failed to get users" });
     });
 });
 
 ///------------------ Endpoint untuk mengambil semua data teknisi (technicians)------------------
-app.get('/api/technicians', (req, res) => {
+app.get("/api/technicians", (req, res) => {
   techniciansCollection
     .get()
     .then((snapshot) => {
@@ -231,17 +236,17 @@ app.get('/api/technicians', (req, res) => {
       res.json(technicians);
     })
     .catch((error) => {
-      console.error('Error getting technicians:', error);
-      res.status(500).json({ error: 'Failed to get technicians' });
+      console.error("Error getting technicians:", error);
+      res.status(500).json({ error: "Failed to get technicians" });
     });
 });
 
-///----- Endpoint untuk mengambil data teknisi berdasarkan jenis keahlian (technicians)----------
-app.get('/api/technicians/by-jenis-keahlian', (req, res) => {
+///----- (kode 000)Endpoint untuk mengambil data teknisi berdasarkan jenis keahlian (technicians) ----------
+app.get("/api/technicians/by-jenis-keahlian", (req, res) => {
   const { jenisKeahlian } = req.query;
 
   techniciansCollection
-    .where('jenisKeahlian', '==', jenisKeahlian)
+    .where("jenisKeahlian", "==", jenisKeahlian)
     .get()
     .then((snapshot) => {
       const technicians = [];
@@ -255,21 +260,21 @@ app.get('/api/technicians/by-jenis-keahlian', (req, res) => {
       res.json(technicians);
     })
     .catch((error) => {
-      console.error('Error getting technicians:', error);
-      res.status(500).json({ error: 'Failed to get technicians' });
+      console.error("Error getting technicians:", error);
+      res.status(500).json({ error: "Failed to get technicians" });
     });
 });
 
-///------------- Endpoint untuk mengambil data user berdasarkan jenis email (users) ------------
-app.get('/api/users/by-email/:email', (req, res) => {
+///------------- 000 Endpoint untuk mengambil data user berdasarkan jenis email (users) ------------
+app.get("/api/users/by-email/:email", (req, res) => {
   const email = req.params.email;
 
   usersCollection
-    .where('email', '==', email)
+    .where("email", "==", email)
     .get()
     .then((snapshot) => {
       if (snapshot.empty) {
-        res.status(404).json({ error: 'User not found' });
+        res.status(404).json({ error: "User not found" });
       } else {
         const users = [];
         snapshot.forEach((doc) => {
@@ -280,126 +285,117 @@ app.get('/api/users/by-email/:email', (req, res) => {
       }
     })
     .catch((error) => {
-      console.error('Error getting users:', error);
-      res.status(500).json({ error: 'Failed to get users' });
+      console.error("Error getting users:", error);
+      res.status(500).json({ error: "Failed to get users" });
     });
 });
 
 ///---- Endpoint untuk mengunggah service-request atau permintaan layanan dari user (users) ----
-app.post('/api/service-requests', upload.single('fotoBarang'), async (req, res) => {
-  try {
-    const { alamat, detailBarang } = req.body;
-    const fotoBarang = req.file;
+app.post(
+  "/api/service-requests/:userId",
+  upload.single("fotoBarang"),
+  async (req, res) => {
+    try {
+      const { userId } = req.params; // Mendapatkan userID dari parameter rute
+      const { alamat, detailBarang } = req.body;
+      const fotoBarang = req.file;
 
-    const bucket = storage.bucket("gs://loginsignup-auth-dc6a9.appspot.com");
+      const bucket = storage.bucket("gs://loginsignup-auth-dc6a9.appspot.com");
 
-    // URL gambar barang yang diunggah
-    let fotoBarangUrl = "";
+      // URL gambar barang yang diunggah
+      let fotoBarangUrl = "";
 
-    if (fotoBarang) {
-      let uuid = UUID();
-      const downLoadPath = "https://firebasestorage.googleapis.com/v0/b/loginsignup-auth-dc6a9.appspot.com/o/";
+      if (fotoBarang) {
+        let uuid = UUID();
+        const downLoadPath =
+          "https://firebasestorage.googleapis.com/v0/b/loginsignup-auth-dc6a9.appspot.com/o/";
 
-      const fotoBarangResponse = await bucket.upload(fotoBarang.path, {
-        destination: `fotoBarang/${fotoBarang.originalname}`,
-        resumable: true,
-        metadata: {
+        const fotoBarangResponse = await bucket.upload(fotoBarang.path, {
+          destination: `fotoBarang/${fotoBarang.originalname}`,
+          resumable: true,
           metadata: {
-            firebaseStorageDownloadTokens: uuid,
+            metadata: {
+              firebaseStorageDownloadTokens: uuid,
+            },
           },
-        },
+        });
+
+        // URL gambar barang
+        fotoBarangUrl =
+          downLoadPath +
+          encodeURIComponent(fotoBarangResponse[0].name) +
+          "?alt=media&token=" +
+          uuid;
+      }
+
+      const serviceRequestData = {
+        alamat,
+        fotoBarang: fotoBarangUrl,
+        detailBarang,
+        timestamp: new Date(),
+      };
+
+      const serviceRequestRef = await db
+        .collection("serviceRequests")
+        .add(serviceRequestData);
+
+      const userRef = db.collection("users").doc(userId);
+
+      // Simpan referensi service request di dalam dokumen pengguna
+      await userRef
+        .collection("serviceRequests")
+        .doc(serviceRequestRef.id)
+        .set({
+          idPesanan: serviceRequestRef.id,
+          alamat,
+          fotoBarang: fotoBarangUrl,
+          detailBarang,
+          timestamp: new Date(),
+        });
+
+      res.status(200).json({
+        status: "success",
+        orderNumber: serviceRequestRef.id,
       });
-
-      // URL gambar barang
-      fotoBarangUrl =
-        downLoadPath +
-        encodeURIComponent(fotoBarangResponse[0].name) +
-        "?alt=media&token=" +
-        uuid;
+    } catch (error) {
+      res.status(500).json({
+        status: "error",
+        message: "Failed to create service request.",
+      });
     }
+  }
+);
 
-    const serviceRequestRef = db.collection('serviceRequests').doc();
-    const IdPesanan = serviceRequestRef.id; // Menggunakan ID dokumen sebagai ID pesanan
+///---------------------- Mengambil histori pesanan-------------------------------
+app.get("/api/service-requests/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
 
-    const serviceRequestData = {
-      alamat,
-      fotoBarang: fotoBarangUrl,
-      detailBarang,
-      IdPesanan, // Menyimpan ID pesanan di data permintaan layanan
-      timestamp: new Date() // Menambahkan properti timestamp dengan waktu saat ini
-    };
+    const userRef = db.collection("users").doc(userId);
+    const serviceRequestsRef = userRef.collection("serviceRequests");
 
-    await serviceRequestRef.set(serviceRequestData); // Menyimpan data permintaan layanan ke Firestore
+    const serviceRequestsSnapshot = await serviceRequestsRef.get();
+    const serviceRequests = [];
+
+    serviceRequestsSnapshot.forEach((doc) => {
+      const serviceRequestData = doc.data();
+      serviceRequests.push({
+        idPesanan: doc.id,
+        alamat: serviceRequestData.alamat,
+        fotoBarang: serviceRequestData.fotoBarang,
+        detailBarang: serviceRequestData.detailBarang,
+        timestamp: serviceRequestData.timestamp,
+      });
+    });
 
     res.status(200).json({
-      status: 'success',
-      orderNumber: IdPesanan // Mengembalikan ID pesanan sebagai nomor pesanan
+      status: "success",
+      serviceRequests: serviceRequests,
     });
   } catch (error) {
     res.status(500).json({
-      status: 'error',
-      message: 'Failed to create service request.'
-    });
-  }
-});
-
-///--------- Endpoint untuk mengambil semua data permintaan layanan dari user (users) ----------
-app.get('/api/service-requests', async (req, res) => {
-  try {
-    const serviceRequestsRef = db.collection('serviceRequests');
-    const serviceRequestsSnapshot = await serviceRequestsRef.get();
-
-    if (serviceRequestsSnapshot.empty) {
-      res.status(404).json({
-        status: 'error',
-        message: 'No service requests found.'
-      });
-    } else {
-      const serviceRequestsData = [];
-
-      serviceRequestsSnapshot.forEach((doc) => {
-        const serviceRequestData = doc.data();
-        serviceRequestsData.push(serviceRequestData);
-      });
-
-      res.status(200).json({
-        status: 'success',
-        serviceRequestsData
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: 'Failed to retrieve service requests.'
-    });
-  }
-});
-
-///----- Endpoint untuk mengambil data permintaan layanan berdasarkan ID dari user (users) ------
-app.get('/api/service-requests/:idPesanan', async (req, res) => {
-  try {
-    const { idPesanan } = req.params;
-
-    const serviceRequestRef = db.collection('serviceRequests').doc(idPesanan);
-    const serviceRequestDoc = await serviceRequestRef.get();
-
-    if (!serviceRequestDoc.exists) {
-      res.status(404).json({
-        status: 'error',
-        message: 'Service request not found.'
-      });
-    } else {
-      const serviceRequestData = serviceRequestDoc.data();
-
-      res.status(200).json({
-        status: 'success',
-        serviceRequestData
-      });
-    }
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: 'Failed to retrieve service request.'
+      status: "error",
+      message: "Failed to retrieve service requests.",
     });
   }
 });
@@ -508,8 +504,9 @@ app.get("/api/technicians/:technicianId/feedbacks", async (req, res) => {
 });
 
 app.listen(5000, () => {
-  console.log('Obeng REST API listening on port 5000');
+  console.log("Obeng REST API listening on port 5000");
 });
 
 // newest : CRU data user and technicians(new), Mengupload NIK dan foto ktp pada register (new), Mengambil foto profil (error)
-// newest : Feedback and rating (new), Update penerimaan pekerjaan (new), mengambil feedback berdasarkan id teknisi (new)
+// newest : Memperbarui service request, endpoint mengambil histori pesanan (new)
+// kode 000 > endpoint bisa dihapus tpi perlu diskusi dulu
