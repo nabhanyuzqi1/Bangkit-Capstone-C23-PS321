@@ -2,13 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const { Storage } = require("@google-cloud/storage");
-const formidable = require("formidable");
 const UUID = require("uuid-v4");
 const multer = require("multer");
 const upload = multer({ dest: "Obeng_images/" });
-const axios = require("axios");
-const { v4: uuidv4 } = require("uuid");
-
 const serviceAccount = require("./serviceAccountKey.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -385,6 +381,7 @@ app.get("/api/service-requests/:userId", async (req, res) => {
         fotoBarang: serviceRequestData.fotoBarang,
         detailBarang: serviceRequestData.detailBarang,
         timestamp: serviceRequestData.timestamp,
+        status: serviceRequestData.status,
       });
     });
 
@@ -400,25 +397,39 @@ app.get("/api/service-requests/:userId", async (req, res) => {
   }
 });
 
-///-------- Endpoint untuk memperbarui data penerimaan pekerjaan teknisi (technicians) ----------
-app.patch("/api/service-requests/:requestId/penerimaan", (req, res) => {
-  const { requestId } = req.params;
-  const { acceptanceStatus } = req.body;
+///-------- Endpoint untuk memperbarui status penerimaan pekerjaan teknisi (technicians) ----------
+app.put("/api/service-requests/:userId/:serviceRequestId", async (req, res) => {
+  try {
+    const { userId, serviceRequestId } = req.params;
+    const { status } = req.body;
 
-  const serviceRequestRef = db.collection("serviceRequests").doc(requestId);
+    const userRef = db.collection("users").doc(userId);
+    const serviceRequestRef = userRef
+      .collection("serviceRequests")
+      .doc(serviceRequestId);
 
-  serviceRequestRef
-    .update({ acceptanceStatus })
-    .then(() => {
-      res.json({
-        status: "success",
-        message: "Penerimaan pekerjaan berhasil diperbarui",
+    // Periksa apakah service request ada dan milik pengguna
+    const serviceRequestSnapshot = await serviceRequestRef.get();
+    if (!serviceRequestSnapshot.exists) {
+      return res.status(404).json({
+        status: "error",
+        message: "Service request not found.",
       });
-    })
-    .catch((error) => {
-      console.error("Error memperbarui penerimaan pekerjaan:", error);
-      res.status(500).json({ error: "Gagal memperbarui penerimaan pekerjaan" });
+    }
+
+    // Perbarui status penerimaan pekerjaan
+    await serviceRequestRef.update({ status });
+
+    res.status(200).json({
+      status: "success",
+      message: "Status service request berhasil diperbarui.",
     });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Gagal memperbarui status service request.",
+    });
+  }
 });
 
 ///------ Endpoint untuk memperbarui data feedback dan rating untuk teknisi(technicians) --------
@@ -508,5 +519,5 @@ app.listen(5000, () => {
 });
 
 // newest : CRU data user and technicians(new), Mengupload NIK dan foto ktp pada register (new), Mengambil foto profil (error)
-// newest : Memperbarui service request, endpoint mengambil histori pesanan (new)
+// newest : Memperbarui service request , endpoint mengambil histori pesanan (update), endpoint mengupdate status pesanan (update)
 // kode 000 > endpoint bisa dihapus tpi perlu diskusi dulu
