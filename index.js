@@ -623,3 +623,4 @@ app.listen(5000, () => {
 });
 
 // newest : CRU data user and technicians(new), Mengupload foto ktp pada register (new), Mengambil foto profil (error)
+// newest : Feedback and rating (new), Update penerimaan pekerjaan (new), mengambil feedback berdasarkan id teknisi (new)
