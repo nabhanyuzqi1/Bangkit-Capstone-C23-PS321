@@ -1,11 +1,15 @@
 package com.oneplatform.obeng.screen.components
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Edit
@@ -33,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -215,55 +221,158 @@ fun CardHistoryOrder(cardOrderStats: CardOrderStats) {
 
 @Composable
 fun CardTechName(cardTechStats: Technician){
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp)
-            .clickable { },
-        colors = CardDefaults.cardColors(third)
-    ) {
-        Row(modifier = Modifier.fillMaxWidth()) {
+    Column {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)
+                .clickable { },
+            colors = CardDefaults.cardColors(third)
+        ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
 
-            Column(
-                modifier = Modifier
-                    .padding(15.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                Column(
+                    modifier = Modifier
+                        .padding(15.dp)
                 ) {
-                    Text(
-                        buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontWeight = FontWeight.W900,
-                                    color = Color(0xFF4552B8)
-                                )
-                            ) {
-                                append(cardTechStats.name)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontWeight = FontWeight.W900,
+                                        color = Color(0xFF4552B8)
+                                    )
+                                ) {
+                                    append("Detail Teknisi")
+                                }
                             }
-                        }
-                    )
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = "Keahlian ${cardTechStats.jenisKeahlian}"
                         )
-                        Text(text = "5.0")
+
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically){
+                            Text(text = "Rating")
+                        }
+                        Row (verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = null
+                            )
+                            Text(text = "5.0")
+                        }
+
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(text = "Keahlian")
+                        Text(text = cardTechStats.jenisKeahlian)
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(text = "Alamat")
+                        Text(text = cardTechStats.alamat)
+                    }
+
+                }
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)
+                .clickable { },
+            colors = CardDefaults.cardColors(third)
+        ) {
+            Row(modifier = Modifier.fillMaxWidth()) {
+
+                Column(
+                    modifier = Modifier
+                        .padding(15.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontWeight = FontWeight.W900,
+                                        color = Color(0xFF4552B8)
+                                    )
+                                ) {
+                                    append("Data Keahlian")
+                                }
+                            }
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(text = "Sertifikasi")
+                        SimpleClickableText(linkUrl = cardTechStats.linkSertifikasi, textName = "Click Me")
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(text = "Portofolio")
+                        SimpleClickableText(linkUrl = cardTechStats.linkPortofolio, textName = "Click Me")
                     }
                 }
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(text = "Keahlian")
-                    Text(text = cardTechStats.jenisKeahlian)
-                }
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text(text = "Alamat")
-                    Text(text = cardTechStats.alamat)
-                }
+            }
 
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier
+                        .padding(15.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            buildAnnotatedString {
+                                withStyle(
+                                    style = SpanStyle(
+                                        fontWeight = FontWeight.W900,
+                                        color = Color(0xFF4552B8)
+                                    )
+                                ) {
+                                    append("Biaya Jasa")
+                                }
+                            }
+                        )
+                    }
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(text = "Sewa Jasa")
+                        Text(text = "Rp. 150.000")
+                    }
+                }
             }
         }
     }
+}
+
+@Composable
+fun SimpleClickableText(linkUrl: String, textName: String) {
+    val context = LocalContext.current
+
+    ClickableText(
+        text = AnnotatedString(textName),
+        onClick = {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
+            context.startActivity(intent)
+        }
+    )
 }
 
 @Preview(showBackground = true)
