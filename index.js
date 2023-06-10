@@ -494,7 +494,7 @@ app.post(
   upload.single("fotoBarang"),
   async (req, res) => {
     try {
-      const { alamat, detailBarang } = req.body;
+      const { alamatUser, detailBarang } = req.body;
       const fotoBarang = req.file;
 
       const bucket = storage.bucket("gs://loginsignup-auth-dc6a9.appspot.com");
@@ -529,7 +529,7 @@ app.post(
       const IdPesanan = serviceRequestRef.id; // Menggunakan ID dokumen sebagai ID pesanan
 
       const serviceRequestData = {
-        alamat,
+        alamatUser,
         fotoBarang: fotoBarangUrl,
         detailBarang,
         IdPesanan, // Menyimpan ID pesanan di data permintaan layanan
