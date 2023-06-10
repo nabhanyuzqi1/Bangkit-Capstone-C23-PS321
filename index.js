@@ -488,13 +488,12 @@ app.get("/api/users/by-email/:email", (req, res) => {
     });
 });
 
-///---- Endpoint untuk mengunggah service-request atau permintaan layanan dari user (users) ----
+///--------------------- Mengirim service-request atau permintaan layanan------------------------
 app.post(
-  "/api/service-requests/:userId",
+  "/api/service-requests",
   upload.single("fotoBarang"),
   async (req, res) => {
     try {
-      const { userId } = req.params; // Mendapatkan userID dari parameter rute
       const { alamat, detailBarang } = req.body;
       const fotoBarang = req.file;
 
@@ -526,34 +525,22 @@ app.post(
           uuid;
       }
 
+      const serviceRequestRef = db.collection("serviceRequests").doc();
+      const IdPesanan = serviceRequestRef.id; // Menggunakan ID dokumen sebagai ID pesanan
+
       const serviceRequestData = {
         alamat,
         fotoBarang: fotoBarangUrl,
         detailBarang,
-        timestamp: new Date(),
+        IdPesanan, // Menyimpan ID pesanan di data permintaan layanan
+        timestamp: new Date(), // Menambahkan properti timestamp dengan waktu saat ini
       };
 
-      const serviceRequestRef = await db
-        .collection("serviceRequests")
-        .add(serviceRequestData);
-
-      const userRef = db.collection("users").doc(userId);
-
-      // Simpan referensi service request di dalam dokumen pengguna
-      await userRef
-        .collection("serviceRequests")
-        .doc(serviceRequestRef.id)
-        .set({
-          idPesanan: serviceRequestRef.id,
-          alamat,
-          fotoBarang: fotoBarangUrl,
-          detailBarang,
-          timestamp: new Date(),
-        });
+      await serviceRequestRef.set(serviceRequestData); // Menyimpan data permintaan layanan ke Firestore
 
       res.status(200).json({
         status: "success",
-        orderNumber: serviceRequestRef.id,
+        orderNumber: IdPesanan, // Mengembalikan ID pesanan sebagai nomor pesanan
       });
     } catch (error) {
       res.status(500).json({
@@ -564,33 +551,30 @@ app.post(
   }
 );
 
-///---------------------- Mengambil histori pesanan-------------------------------
-app.get("/api/service-requests/:userId", async (req, res) => {
+///---------------------- Mengambil semua data permintaan layanan-------------------------------
+app.get("/api/service-requests", async (req, res) => {
   try {
-    const { userId } = req.params;
-
-    const userRef = db.collection("users").doc(userId);
-    const serviceRequestsRef = userRef.collection("serviceRequests");
-
+    const serviceRequestsRef = db.collection("serviceRequests");
     const serviceRequestsSnapshot = await serviceRequestsRef.get();
-    const serviceRequests = [];
 
-    serviceRequestsSnapshot.forEach((doc) => {
-      const serviceRequestData = doc.data();
-      serviceRequests.push({
-        idPesanan: doc.id,
-        alamat: serviceRequestData.alamat,
-        fotoBarang: serviceRequestData.fotoBarang,
-        detailBarang: serviceRequestData.detailBarang,
-        timestamp: serviceRequestData.timestamp,
-        status: serviceRequestData.status,
+    if (serviceRequestsSnapshot.empty) {
+      res.status(404).json({
+        status: "error",
+        message: "No service requests found.",
       });
-    });
+    } else {
+      const serviceRequestsData = [];
 
-    res.status(200).json({
-      status: "success",
-      serviceRequests: serviceRequests,
-    });
+      serviceRequestsSnapshot.forEach((doc) => {
+        const serviceRequestData = doc.data();
+        serviceRequestsData.push(serviceRequestData);
+      });
+
+      res.status(200).json({
+        status: "success",
+        serviceRequestsData,
+      });
+    }
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -599,38 +583,60 @@ app.get("/api/service-requests/:userId", async (req, res) => {
   }
 });
 
-///-------- Endpoint untuk memperbarui status penerimaan pekerjaan teknisi (technicians) ----------
-app.put("/api/service-requests/:userId/:serviceRequestId", async (req, res) => {
+///--------------------- Mengambil data permintaan layanan berdasarkan ID----------------------
+app.get("/api/service-requests/:idPesanan", async (req, res) => {
   try {
-    const { userId, serviceRequestId } = req.params;
-    const { status } = req.body;
+    const { idPesanan } = req.params;
 
-    const userRef = db.collection("users").doc(userId);
-    const serviceRequestRef = userRef
-      .collection("serviceRequests")
-      .doc(serviceRequestId);
+    const serviceRequestRef = db.collection("serviceRequests").doc(idPesanan);
+    const serviceRequestDoc = await serviceRequestRef.get();
 
-    // Periksa apakah service request ada dan milik pengguna
-    const serviceRequestSnapshot = await serviceRequestRef.get();
-    if (!serviceRequestSnapshot.exists) {
-      return res.status(404).json({
+    if (!serviceRequestDoc.exists) {
+      res.status(404).json({
         status: "error",
         message: "Service request not found.",
       });
+    } else {
+      const serviceRequestData = serviceRequestDoc.data();
+
+      res.status(200).json({
+        status: "success",
+        serviceRequestData,
+      });
     }
-
-    // Perbarui status penerimaan pekerjaan
-    await serviceRequestRef.update({ status });
-
-    res.status(200).json({
-      status: "success",
-      message: "Status service request berhasil diperbarui.",
-    });
   } catch (error) {
     res.status(500).json({
       status: "error",
-      message: "Gagal memperbarui status service request.",
+      message: "Failed to retrieve service request.",
     });
+  }
+});
+
+///------------------------------ API Penerimaan Pekerjaan-----------------------------------
+app.patch("/api/service-requests/:requestId/penerimaan", (req, res) => {
+  const { requestId } = req.params;
+  const { acceptanceStatus } = req.body;
+
+  const serviceRequestsRef = db.collection("serviceRequests").doc(requestId);
+
+  if (acceptanceStatus !== undefined) {
+    serviceRequestsRef
+      .update({ acceptanceStatus })
+      .then(() => {
+        res.json({
+          status: "success",
+          message: "Penerimaan pekerjaan berhasil diperbarui",
+        });
+      })
+      .catch((error) => {
+        console.error("Error memperbarui penerimaan pekerjaan:", error);
+        res
+          .status(500)
+          .json({ error: "Gagal memperbarui penerimaan pekerjaan" });
+      });
+  } else {
+    console.log("acceptanceStatus is undefined. Skipping update.");
+    res.status(400).json({ error: "acceptanceStatus is undefined" });
   }
 });
 
