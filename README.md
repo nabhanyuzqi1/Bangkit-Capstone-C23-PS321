@@ -23,10 +23,16 @@ TBA
 Wireframe Figma Link:
 [https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1)
 
-## Mockup
+## Obeng Mockup User
 TBA
 
-## Prototype
+## Obeng Mockup Technician
+TBA
+
+## Obeng Prototype User
+TBA
+
+## Obeng Prototype Technician
 TBA
 
 ## Deployment
