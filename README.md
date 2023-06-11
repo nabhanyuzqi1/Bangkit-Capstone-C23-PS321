@@ -27,7 +27,8 @@ that simplifies the process of finding reliable and qualified technicians.</p>
 <p>TBA</p>
 
 <h2>Wireframe</h2>
-<p>TBA</p>
+https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/issues/1#issue-1751436280
+<p>Wireframe Figma Link : https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1</p>
 
 <h2>Mockup</h2>
 <p>TBA</p>
