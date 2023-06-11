@@ -20,14 +20,17 @@ TBA
 ## Wireframe
 ![WireframeImage](https://user-images.githubusercontent.com/101621066/244941674-4e6db0ce-c37f-4cd9-8d3e-967eac87c9ca.jpeg)
 
-Our wireframe Figma Link:
+Our Wireframe Figma Link:
 [https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1)
 
 ## Obeng Mockup User
-![MockUP]([https://user-images.githubusercontent.com/101621066/244941674-4e6db0ce-c37f-4cd9-8d3e-967eac87c9ca.jpeg](https://user-images.githubusercontent.com/101621066/244960104-5aa1ca97-b9ff-4752-9907-9136925b27fb.jpeg))
+![MockUP](https://user-images.githubusercontent.com/101621066/244960104-5aa1ca97-b9ff-4752-9907-9136925b27fb.jpeg)
 
-Our mockup Figma Link:
+Our Mockup User Figma Link:
 [https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25%3A923&t=pNJGnZRAxDxnYvjD-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25%3A923&t=pNJGnZRAxDxnYvjD-1)
+
+Our Prototype User Figma Link:
+[https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-924&scaling=scale-down&page-id=25%3A923&starting-point-node-id=25%3A924](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-924&scaling=scale-down&page-id=25%3A923&starting-point-node-id=25%3A924)
 
 ## Obeng Mockup Technician
 TBA
