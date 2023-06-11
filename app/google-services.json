@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "416880535782",
+    "project_id": "loginsignup-auth-dc6a9",
+    "storage_bucket": "loginsignup-auth-dc6a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416880535782:android:aa1332d07aa68ae569b327",
+        "android_client_info": {
+          "package_name": "com.example.loginsignupauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416880535782-6nddodv6sklcol4u09fivc6b8g3o91ii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGC4h5wcWyhzSj2ii5yCJpRST_fIckyck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416880535782-6nddodv6sklcol4u09fivc6b8g3o91ii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416880535782:android:4f7fa394fac79cb269b327",
+        "android_client_info": {
+          "package_name": "com.oneplatform.obeng"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416880535782-6nddodv6sklcol4u09fivc6b8g3o91ii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGC4h5wcWyhzSj2ii5yCJpRST_fIckyck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416880535782-6nddodv6sklcol4u09fivc6b8g3o91ii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
