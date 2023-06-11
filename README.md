@@ -20,19 +20,16 @@ TBA
 ## Wireframe
 ![WireframeImage](https://user-images.githubusercontent.com/101621066/244941674-4e6db0ce-c37f-4cd9-8d3e-967eac87c9ca.jpeg)
 
-Wireframe Figma Link:
+Our wireframe Figma Link:
 [https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1)
 
 ## Obeng Mockup User
-TBA
+![MockUP]([https://user-images.githubusercontent.com/101621066/244941674-4e6db0ce-c37f-4cd9-8d3e-967eac87c9ca.jpeg](https://user-images.githubusercontent.com/101621066/244960104-5aa1ca97-b9ff-4752-9907-9136925b27fb.jpeg))
+
+Our mockup Figma Link:
+[https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25%3A923&t=pNJGnZRAxDxnYvjD-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25%3A923&t=pNJGnZRAxDxnYvjD-1)
 
 ## Obeng Mockup Technician
-TBA
-
-## Obeng Prototype User
-TBA
-
-## Obeng Prototype Technician
 TBA
 
 ## Deployment
