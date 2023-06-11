@@ -592,34 +592,6 @@ app.get("/api/service-requests/:idPesanan", async (req, res) => {
   }
 });
 
-///---------------- Endpoint untuk mengubah status penerimaan service-request ------------------
-app.patch("/api/service-requests/:requestId/penerimaan", (req, res) => {
-  const { requestId } = req.params;
-  const { acceptanceStatus } = req.body;
-
-  const serviceRequestsRef = db.collection("serviceRequests").doc(requestId);
-
-  if (acceptanceStatus !== undefined) {
-    serviceRequestsRef
-      .update({ acceptanceStatus })
-      .then(() => {
-        res.json({
-          status: "success",
-          message: "Penerimaan pekerjaan berhasil diperbarui",
-        });
-      })
-      .catch((error) => {
-        console.error("Error memperbarui penerimaan pekerjaan:", error);
-        res
-          .status(500)
-          .json({ error: "Gagal memperbarui penerimaan pekerjaan" });
-      });
-  } else {
-    console.log("acceptanceStatus is undefined. Skipping update.");
-    res.status(400).json({ error: "acceptanceStatus is undefined" });
-  }
-});
-
 ///------ Endpoint untuk memperbarui data feedback dan rating untuk teknisi(technicians) --------
 app.post("/api/technicians/:technicianId/feedback", async (req, res) => {
   try {
@@ -768,5 +740,5 @@ app.listen(5000, () => {
 });
 
 // newest : CRU data user and technicians(new 11/06/23), Mengupload NIK, foto ktp dan foto profil pada register (new), menambah item pada serv-req (new), POST and GET API Dompet(new), minor fixed (response success/error).
-// newest : Memperbarui service request , endpoint mengambil histori pesanan (update), endpoint mengupdate status pesanan (update)
+// newest : Memperbarui service request , endpoint mengambil histori pesanan (update), endpoint mengupdate status pesanan (delete 11/6)
 // kode 000 > endpoint bisa dihapus tpi perlu diskusi dulu
