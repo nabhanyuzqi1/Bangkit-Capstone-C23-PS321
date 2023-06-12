@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.oneplatform.obeng.ui.theme.ObengTheme
+import com.oneplatform.obeng.utils.RecommendationModel
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -46,9 +47,9 @@ fun FirebaseAuthStatus() {
         val currentRoute = navController.currentDestination?.route ?: "splash_screen"
         ObengTheme(currentRoute = currentRoute) {
         Surface(color = colorScheme.background) {
-            //RecommendationModel()
+            RecommendationModel()
             //Navigation()
-            //newTransaction()
+            //PaymentScreen()
         }
     }
 }
