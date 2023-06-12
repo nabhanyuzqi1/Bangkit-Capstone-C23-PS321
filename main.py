@@ -9,6 +9,9 @@ from pydantic import BaseModel
 from urllib.request import Request
 from fastapi import FastAPI, Response, UploadFile
 
+# Load technician data
+tech_data = pd.read_csv('technicians_data.csv')
+
 # Define the custom metric function
 def mean_average_precision(y_true, y_pred):
     # Extract the relevant information from y_true and y_pred
@@ -81,26 +84,27 @@ def predict_technician(req: PredictionRequest):
         predictions = model.predict(user_features)
 
         # Retrieve the predicted technicians and ratings
-        predicted_technicians_id = predictions[0][0]
-        predicted_rating = predictions[0][1]
-        predicted_covered = predictions[0][2:]
-        predicted_technicians_id = int(np.round(np.clip(predicted_technicians_id, 1, 20)))
-        predicted_rating = int(np.round(np.clip(predicted_rating, 1, 5)))
+        predicted_technicians_id = int(np.round(np.clip(predictions[0][0], 1, 20)))
+        predicted_rating = int(np.round(np.clip(predictions[0][1], 1, 5)))
 
-        # Convert the predicted_covered values to exact 1s and 0s
-        predicted_covered_exact = np.argmax(predicted_covered)
+        # Get the covered columns
+        covered_columns = ['covered_mesin', 'covered_ban', 'covered_bodi', 'covered_interior', 'covered_oli']
 
-        # Decode the one-hot encoded covered columns
-        covered_columns = ['covered_ban', 'covered_mesin', 'covered_bodi', 'covered_interior', 'covered_oli']
-        predicted_covered_dict = {}
-        for i in range(len(covered_columns)):
-            predicted_covered_dict[covered_columns[i]] = int(predicted_covered_exact == i)
+        # Find the recommended technicians based on user's needs
+        recommended_technicians = []
+        for index, row in tech_data.iterrows():
+            if (row[covered_columns[0]] == 1 and needed_mesin == 1) or \
+                    (row[covered_columns[1]] == 1 and needed_ban == 1) or \
+                    (row[covered_columns[2]] == 1 and needed_bodi == 1) or \
+                    (row[covered_columns[3]] == 1 and needed_interior == 1) or \
+                    (row[covered_columns[4]] == 1 and needed_oli == 1):
+                recommended_technicians.append(row['technicians_id'])
 
         # Prepare the response payload
         response_payload = {
-            "Predicted Technicians ID": predicted_technicians_id,
-            "Predicted Rating": predicted_rating,
-            "Predicted Covered": predicted_covered_dict
+            "Predicted Technicians ID": int(predicted_technicians_id),
+            "Predicted Rating": int(predicted_rating),
+            "Recommended Technicians ID": [int(tid) for tid in recommended_technicians]
         }
 
         return response_payload
