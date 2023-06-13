@@ -28,7 +28,7 @@ TBA
 TBA
 ## DOCUMENTATION OBENG API
 ## Obeng Endpoint Documentation 
-![RunCode](https://documenter.getpostman.com/view/26556240/2s93sdZrs1)<br>
+https://documenter.getpostman.com/view/26556240/2s93sdZrs1
 
 ## How to run this code
 * To use this code, need to connect your app with Firebase project first
