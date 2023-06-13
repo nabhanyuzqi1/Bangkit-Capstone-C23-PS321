@@ -8,11 +8,12 @@ The Obeng App (Online "Bengkel") is a digital platform that provides online repa
 
 In today's digital era, people need an easy and practical digital platform to fix their automotive devices. However, it can be difficult to find reliable and trustworthy technicians for the job, and comparing services between technicians can be time-consuming. The Obeng app addresses these issues by providing a digital platform that simplifies the process of finding reliable and qualified technicians.
 
-## Method
-TBA
+## Tools that we use are:
 
-## Tools
-TBA
+- Trello and Discord for team coordination.
+- Figma for creating wireframes, mockups, and prototypes.
+- MiroBoard for creating user flow diagrams.
+- Android Studio for developing Android applications using Jetpack Compose.
 
 ## Use Case Diagram
 TBA
