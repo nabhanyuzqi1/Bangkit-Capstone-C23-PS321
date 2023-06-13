@@ -15,16 +15,19 @@ In today's digital era, people need an easy and practical digital platform to fi
 - MiroBoard for creating user flow diagrams.
 - Android Studio for developing Android applications using Jetpack Compose.
 
-## Use Case Diagram
-TBA
+## Flow Diagram
+This is Our User or Technician Flow Diagram
+![FlowDiagraam](https://user-images.githubusercontent.com/101621066/245364092-22f88a63-36f9-4a14-a6ce-784711e80b2d.jpg)
 
 ## Wireframe
+This is Our User or Technician Wireframe
 ![WireframeImage](https://user-images.githubusercontent.com/101621066/244941674-4e6db0ce-c37f-4cd9-8d3e-967eac87c9ca.jpeg)
 
 Our Wireframe Figma Link:
 [https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0%3A1&t=pNJGnZRAxDxnYvjD-1)
 
 ## Obeng Mockup User
+This is Our User Mockup
 ![MockUP](https://user-images.githubusercontent.com/101621066/244960104-5aa1ca97-b9ff-4752-9907-9136925b27fb.jpeg)
 
 Our Mockup User Figma Link:
@@ -34,6 +37,7 @@ Our Prototype User Figma Link:
 [https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-924&scaling=scale-down&page-id=25%3A923&starting-point-node-id=25%3A924](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-924&scaling=scale-down&page-id=25%3A923&starting-point-node-id=25%3A924)
 
 ## Obeng Mockup Technician
+This is Our Technician Mockup
 ![MockUP](https://user-images.githubusercontent.com/101621066/245339610-b5bc8ee4-8b4a-4405-b189-9db212539898.jpeg)
 
 Our Mockup Technician Figma Link:
