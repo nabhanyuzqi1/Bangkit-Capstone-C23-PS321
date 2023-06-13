@@ -79,6 +79,22 @@ usersRouter.post(
           uuid;
       }
 
+      // Cek apakah email atau NIK sudah ada dalam database
+      const existingUserEmailSnapshot = await usersCollection
+        .where("email", "==", email)
+        .get();
+
+      const existingUserNIKSnapshot = await usersCollection
+        .where("NIK", "==", NIK)
+        .get();
+
+      if (!existingUserEmailSnapshot.empty || !existingUserNIKSnapshot.empty) {
+        return res.status(400).json({
+          status: "error",
+          message: "Username, email, or NIK already exists",
+        });
+      }
+
       // Simpan data ke dalam database
       const userRecord = await admin.auth().createUser({
         email,
@@ -108,7 +124,7 @@ usersRouter.post(
     } catch (error) {
       res.status(500).json({
         status: "error",
-        message: "Register User gagal.",
+        message: error.message,
       });
     }
   }
@@ -179,6 +195,21 @@ usersRouter.put(
           encodeURIComponent(fotoKTPResponse[0].name) +
           "?alt=media&token=" +
           uuid;
+      }
+      // Cek apakah email atau NIK sudah ada dalam database
+      const existingUserEmailSnapshot = await usersCollection
+        .where("email", "==", email)
+        .get();
+
+      const existingUserNIKSnapshot = await usersCollection
+        .where("NIK", "==", NIK)
+        .get();
+
+      if (!existingUserEmailSnapshot.empty || !existingUserNIKSnapshot.empty) {
+        return res.status(400).json({
+          status: "error",
+          message: "Username, email, or NIK already exists",
+        });
       }
 
       if (fotoProfil) {
