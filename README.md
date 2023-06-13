@@ -34,7 +34,14 @@ Our Prototype User Figma Link:
 [https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-924&scaling=scale-down&page-id=25%3A923&starting-point-node-id=25%3A924](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-924&scaling=scale-down&page-id=25%3A923&starting-point-node-id=25%3A924)
 
 ## Obeng Mockup Technician
-TBA
+![MockUP](https://user-images.githubusercontent.com/101621066/245339610-b5bc8ee4-8b4a-4405-b189-9db212539898.jpeg)
+
+Our Mockup Technician Figma Link:
+[https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=405%3A1629&t=EUQ6EqhLHJDoqz5P-1](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=405%3A1629&t=EUQ6EqhLHJDoqz5P-1)
+
+Our Prototype Technician Figma Link:
+[https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=702-1682&scaling=scale-down&page-id=405%3A1629&starting-point-node-id=702%3A1682](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=702-1682&scaling=scale-down&page-id=405%3A1629&starting-point-node-id=702%3A1682)
+
 
 ## Deployment
 TBA
