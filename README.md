@@ -42,12 +42,3 @@ Our Mockup Technician Figma Link:
 Our Prototype Technician Figma Link:
 [https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=702-1682&scaling=scale-down&page-id=405%3A1629&starting-point-node-id=702%3A1682](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=702-1682&scaling=scale-down&page-id=405%3A1629&starting-point-node-id=702%3A1682)
 
-
-## Deployment
-TBA
-
-## How to Use
-TBA
-
-## References
-TBA
