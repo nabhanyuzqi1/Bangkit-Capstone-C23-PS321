@@ -27,7 +27,7 @@ We made the dataset from scratch by specifying the variables manually in Excel. 
 - covered: the type of repair that technicians that experts in (ban, oli, mesin, bodi, interior)
 - rating: rating of technicians from user that already use the service (1 to 5) 
 
-[Latest Dataset](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/machine_learning/Dataset/dataset_2.csv)
+[Latest Dataset](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/machine_learning/Dataset/dataset_6.csv)
 
 ## HOW TO RECOMMEND
 The Machine Learning model can recommend the user with the best technicians that match with the type of user that user needs by entering inputs such as:
