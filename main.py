@@ -117,4 +117,5 @@ def predict_technician(req: PredictionRequest):
 # Starting the server
 port = os.environ.get("PORT", 8080)
 print(f"Listening to http://0.0.0.0:{port}")
-uvicorn.run(app, host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    uvicorn.run(app, host='0.0.0.0', port=port)
