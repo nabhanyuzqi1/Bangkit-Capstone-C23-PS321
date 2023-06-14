@@ -7,6 +7,9 @@ pluginManagement {
         // Add the midtrans repository into the list of repositories
         maven { url "https://dl.bintray.com/pt-midtrans/maven" }
         maven { url "https://jitpack.io" }
+        maven {
+            url "https://chaquo.com/maven"
+        }
     }
 }
 

@@ -2,8 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
-}
 
+}
 android {
     namespace 'com.oneplatform.obeng'
     compileSdk 33
@@ -24,8 +24,9 @@ android {
     }
 
     aaptOptions {
-        noCompress "tflite"
+        noCompress "tflite"  // Your model's file extension: "tflite", "lite", etc.
     }
+
 
     packagingOptions {
         resources.excludes.add("META-INF/*")
@@ -63,6 +64,8 @@ android {
 
 
 dependencies {
+    implementation 'com.opencsv:opencsv:5.5.2'
+
     implementation 'com.midtrans:uikit:1.25.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -89,6 +92,7 @@ dependencies {
 
     //Firebase ML dependency
     implementation 'com.google.firebase:firebase-ml-model-interpreter:22.0.4'
+
 
     // Firebase ML Kit dependencies
     implementation 'com.google.firebase:firebase-ml-common:22.1.2'
@@ -122,6 +126,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions-ktx:20.3.1'
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.5'
     implementation 'androidx.test:core-ktx:1.5.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.2.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

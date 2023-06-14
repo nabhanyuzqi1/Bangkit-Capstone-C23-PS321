@@ -1,0 +1,16 @@
+{
+  "functions": [
+    {
+      "source": "python",
+      "codebase": "functions",
+      "ignore": [
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log"
+      ]
+    }
+  ],
+  "storage": {
+    "rules": "storage.rules"
+  }
+}
