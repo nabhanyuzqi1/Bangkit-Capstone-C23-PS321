@@ -1,36 +1,43 @@
-const axios = require('axios');
+const express = require("express");
+const fetch = require("node-fetch");
+const paymentRouter = express.Router();
 
-async function paymentSnap(req, res) {
-  try {
-    const options = {
-      method: 'POST',
-      url: 'https://app.sandbox.midtrans.com/snap/v1/transactions',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic U0ItTWlkLXNlcnZlci1INEdiZ051amZZcDEyeW1TdXYtcVdmeUk6'
-      },
-      data: {
-        transaction_details: {
-          order_id: 'order-id3',
-          gross_amount: 10000
-        },
-        credit_card: {
-          secure: true
-        }
-      }
-    };
+paymentRouter.post("/payment", (req, res) => {
+  const { order_id, amount } = req.body;
 
-    const response = await axios.request(options);
-    console.log(response.data);
+  processPayment(order_id, amount)
+    .then((data) => {
+      // Tanggapan dari Midtrans
+      res.json(data);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
+    });
+});
 
-    res.status(200).json({ response: response.data });
-  } catch (error) {
-    console.error('Error generating Snap token:', error);
-    res.status(500).json({ message: 'Error generating Snap token', error });
-  }
+function processPayment(orderId, amount) {
+  const midtransUrl = "https://app.sandbox.midtrans.com/snap/v1/transactions";
+  const midtransOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization:
+        "Basic U0ItTWlkLXNlcnZlci1INEdiZ051amZZcDEyeW1TdXYtcVdmeUk6",
+    },
+    body: JSON.stringify({
+      transaction_details: { order_id: orderId, gross_amount: amount },
+      credit_card: { secure: true },
+    }),
+  };
+
+  return fetch(midtransUrl, midtransOptions)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error:", error);
+      throw new Error("An error occurred while processing payment.");
+    });
 }
 
-module.exports = {
-  paymentSnap
-};
+module.exports = paymentRouter;
+
+// newest: payment.js. code yg fix nya
