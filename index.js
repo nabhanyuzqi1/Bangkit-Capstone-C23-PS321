@@ -11,6 +11,12 @@ const app = express();
 app.use(bodyParser.json());
 
 // Endpoint untuk mengakses APIs
+app.get("/", (req, res) => {
+  res.send("Obeng REST API");
+});
+
+
+// Endpoint untuk mengakses APIs
 const usersRouter = require("./src/users");
 const techniciansRouter = require("./src/technicians");
 const serviceReqRouter = require("./src/service-req");
