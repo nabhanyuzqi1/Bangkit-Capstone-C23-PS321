@@ -52,7 +52,7 @@ To access our APIs which stores data and images in our databases, we keep servic
 We use this API to facilitate payment method, so it doesn't increase the system load and more efficient in transactions activities. This API is also free, so we can save more budget.
 
 ### Google Maps Platform API
-![Google Maps Platform API Documentation](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/cloud_computing/assets/CC%20Documentation/Google-Maps-Platform-logo.png)
+![Google Maps Platform API Documentation](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/cloud_computing/assets/CC%20Documentation/Google-Maps-Platform.png)
 <br>
 [Google Maps Platform API Documentation](https://developers.google.com/maps/documentation)
 We use this API to facilitate location features, we trust this API because it is handled directly by Google Cloud Platform, so that the user's location and whereabouts are securely maintained.
