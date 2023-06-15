@@ -40,4 +40,3 @@ function processPayment(orderId, amount) {
 
 module.exports = paymentRouter;
 
-// newest: payment.js. code yg fix nya
