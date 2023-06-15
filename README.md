@@ -30,9 +30,9 @@ Cloud Computing have responsible for creating and managing APIs, databases and s
 The API is built using node js and express js as our API framework, we use Firebase Authentication for registration and login functions, and also use Firestore Database to store user and technician data and utilize Google Cloud Storage to store images KTP and Profile. We deploy and implement this API and Machine Learning model with cloud run.
 <br>
 ## API URL
-[OBENG API URL](https://obengapi-k7gfgy6coq-et.a.run.app) ,<br>
-[MIDTRANS API](https://midtrans.com/id?utm_source=google&utm_medium=paidsearch&utm_campaign=ID20_Midtrans_Leads_MerchantAcquisition_Brand&utm_term=midtrans%20api&utm_content=midtransdocs&gad=1&gclid=Cj0KCQjw7aqkBhDPARIsAKGa0oIDlaTPfUOsWHMWyess8S_-5fjydTyi_z-W6txB1POeuUllGbad2o4aAlvpEALw_wcB) ,<br>
-[GOOGLE MAPS PLATFORM API](https://cloud.google.com/apigee/?utm_source=google&utm_medium=cpc&utm_campaign=japac-ID-all-en-dr-BKWS-all-pkws-trial-EXA-dr-1605216&utm_content=text-ad-none-none-DEV_c-CRE_602516068253-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Hybrid%20and%20Multi-cloud%20~%20Apigee%20APi%20Management_Global%20gap%20analysis-KWID_43700071649895841-kwd-335425467&userloc_9124898-network_g&utm_term=KW_google%20maps%20api&gclid=Cj0KCQjw7aqkBhDPARIsAKGa0oIS89JieIoE-7ok34259ebPDWaj1muMERx5-8msLoYR6OOZc876cXIaAjCZEALw_wcB&gclsrc=aw.ds)
+- [OBENG API URL](https://obengapi-k7gfgy6coq-et.a.run.app)<br>
+- [MIDTRANS API](https://midtrans.com/id?utm_source=google&utm_medium=paidsearch&utm_campaign=ID20_Midtrans_Leads_MerchantAcquisition_Brand&utm_term=midtrans%20api&utm_content=midtransdocs&gad=1&gclid=Cj0KCQjw7aqkBhDPARIsAKGa0oIDlaTPfUOsWHMWyess8S_-5fjydTyi_z-W6txB1POeuUllGbad2o4aAlvpEALw_wcB)<br>
+- [GOOGLE MAPS PLATFORM API](https://cloud.google.com/apigee/?utm_source=google&utm_medium=cpc&utm_campaign=japac-ID-all-en-dr-BKWS-all-pkws-trial-EXA-dr-1605216&utm_content=text-ad-none-none-DEV_c-CRE_602516068253-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20Hybrid%20and%20Multi-cloud%20~%20Apigee%20APi%20Management_Global%20gap%20analysis-KWID_43700071649895841-kwd-335425467&userloc_9124898-network_g&utm_term=KW_google%20maps%20api&gclid=Cj0KCQjw7aqkBhDPARIsAKGa0oIS89JieIoE-7ok34259ebPDWaj1muMERx5-8msLoYR6OOZc876cXIaAjCZEALw_wcB&gclsrc=aw.ds)
 <br>
 
 ## Entity Relationship Diagram (ERD)
