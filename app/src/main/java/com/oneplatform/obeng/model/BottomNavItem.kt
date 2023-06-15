@@ -5,7 +5,6 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class BottomNavItem(
@@ -40,26 +39,22 @@ val bottomNavItemsUser = listOf(
 val bottomNavItemsTech = listOf(
     BottomNavItem(
         name = "Home",
-        route = "home_screen",
+        route = "techhome_screen",
         icon = Icons.Rounded.Home
     ),
     BottomNavItem(
         name = "Create",
-        route = "order_screen",
+        route = "techorder_screen",
         icon = Icons.Rounded.List
     ),
     BottomNavItem(
         name = "Settings",
-        route = "notification_screen",
+        route = "technotification_screen",
         icon = Icons.Rounded.Notifications
     ),
     BottomNavItem(
         name = "Settings",
-        route = "setting_screen",
+        route = "techsetting_screen",
         icon = Icons.Rounded.Settings
     )
 )
-
-object BottomNavigationManager {
-    var selectedIndex = mutableStateOf(0)
-}

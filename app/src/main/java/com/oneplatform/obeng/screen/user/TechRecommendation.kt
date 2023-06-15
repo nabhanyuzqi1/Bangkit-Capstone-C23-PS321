@@ -4,6 +4,7 @@
 
 package com.oneplatform.obeng.screen.user
 
+import CustomStyleGroupedCheckbox
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,7 +35,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.screen.components.CustomDropdownMenu
-import com.oneplatform.obeng.screen.components.CustomStyleGroupedCheckbox
 import com.oneplatform.obeng.screen.components.CustomTopBarTitleBack
 import com.oneplatform.obeng.ui.theme.Red100
 import com.oneplatform.obeng.ui.theme.gray
@@ -86,7 +86,9 @@ fun TechRecommendation(navController: NavController){
                                 )
                                 CustomDropdownMenu(dropDownList = arrayOf("Pilih Kendaraan", "Mobil", "Motor"),
                                     leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None
-                                )
+                                ){
+
+                                }
 
                                 //Jenis Kerusakan
                                 Text(
@@ -102,7 +104,9 @@ fun TechRecommendation(navController: NavController){
                                         "Interior",
                                         "Oli"
                                     )
-                                )
+                                ){
+
+                                }
 
 
                             }

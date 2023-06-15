@@ -44,7 +44,7 @@ fun ObengTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = false,
-    currentRoute: String, // Add a parameter for the current route
+    currentRoute: String?, // Add a parameter for the current route
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

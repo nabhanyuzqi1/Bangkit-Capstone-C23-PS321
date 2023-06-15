@@ -1,6 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.oneplatform.obeng.screen
+
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,10 +24,12 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -41,11 +45,9 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.screen.components.CustomStyleTextField
 import com.oneplatform.obeng.screen.components.HeaderView
-
 import com.oneplatform.obeng.ui.theme.ObengTheme
 import com.oneplatform.obeng.ui.theme.Red100
 import com.oneplatform.obeng.ui.theme.Red20
@@ -53,11 +55,10 @@ import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.dark_gray
 import com.oneplatform.obeng.ui.theme.gray
 import com.oneplatform.obeng.ui.theme.light_gray
-
-import com.oneplatform.obeng.utils.AuthInit
+import loginClicked
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, context: Context) {
     val currentRoute = navController.currentDestination?.route ?: ""
 
     ObengTheme(currentRoute = currentRoute) {
@@ -66,8 +67,8 @@ fun LoginScreen(navController: NavController) {
         Column(modifier = Modifier.fillMaxSize()) {
             Box(modifier = Modifier.weight(1f)) {
                 when (selectedTabIndex.value) {
-                    0 -> CustomerLoginPage(navController = navController)
-                    1 -> TechnicianLoginPage(navController = navController)
+                    0 -> CustomerLoginPage(navController = navController, context = context)
+                    1 -> TechnicianLoginPage(navController = navController, context = context)
                 }
             }
 
@@ -97,8 +98,11 @@ fun LoginScreen(navController: NavController) {
 }
 
 
+
 @Composable
-fun CustomerLoginPage(navController: NavController) {
+fun CustomerLoginPage(navController: NavController, context: Context) {
+    val emailState = remember { mutableStateOf(String()) }
+    val passwordState = remember { mutableStateOf(String()) }
     LazyColumn(
         modifier = Modifier.fillMaxSize().background(White10),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -180,7 +184,10 @@ fun CustomerLoginPage(navController: NavController) {
                             "Email Address",
                             R.drawable.ic_email,
                             KeyboardType.Email,
-                            VisualTransformation.None
+                            VisualTransformation.None,
+                            onValueChange = { newValue ->
+                                emailState.value = newValue // Update nilai email saat berubah
+                            }
                         )
 
                         Text(
@@ -192,7 +199,10 @@ fun CustomerLoginPage(navController: NavController) {
                             "Password",
                             R.drawable.ic_password,
                             KeyboardType.Password,
-                            PasswordVisualTransformation()
+                            PasswordVisualTransformation(),
+                            onValueChange = { newValue ->
+                                passwordState.value = newValue // Update nilai password saat berubah
+                            }
                         )
 
                         Text(
@@ -204,10 +214,13 @@ fun CustomerLoginPage(navController: NavController) {
                             style = MaterialTheme.typography.labelMedium.copy(color = Red20)
                         )
                         Button(
+
                             onClick = {
-                                //navController.popBackStack()
-                                //navController.navigate("home_screen")
-                                AuthInit(email = "nabhan@example.com", password = "coba123", navController)
+
+                                      loginClicked(navController=navController,
+                                          emailState = emailState.value,
+                                          passwordState = passwordState.value,
+                                          route = "home_screen", context = context)
                             },
                             colors = ButtonDefaults.buttonColors(containerColor = Red100),
                             modifier = Modifier
@@ -271,7 +284,9 @@ fun CustomerLoginPage(navController: NavController) {
 }
 
 @Composable
-fun TechnicianLoginPage(navController: NavController) {
+fun TechnicianLoginPage(navController: NavController, context: Context) {
+    val emailState = remember { mutableStateOf(String()) }
+    val passwordState = remember { mutableStateOf(String()) }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -353,7 +368,10 @@ fun TechnicianLoginPage(navController: NavController) {
                             "Email Address",
                             R.drawable.ic_email,
                             KeyboardType.Email,
-                            VisualTransformation.None
+                            VisualTransformation.None,
+                            onValueChange = { newValue ->
+                                emailState.value = newValue // Update nilai email saat berubah
+                            }
                         )
 
                         Text(
@@ -365,7 +383,10 @@ fun TechnicianLoginPage(navController: NavController) {
                             "Password",
                             R.drawable.ic_password,
                             KeyboardType.Password,
-                            PasswordVisualTransformation()
+                            PasswordVisualTransformation(),
+                            onValueChange = { newValue ->
+                                passwordState.value = newValue // Update nilai email saat berubah
+                            }
                         )
 
                         Text(
@@ -378,9 +399,11 @@ fun TechnicianLoginPage(navController: NavController) {
                         )
                         Button(
                             onClick = {
-                                //navController.popBackStack()
-                                //navController.navigate("home_screen")
-                                      },
+                                loginClicked(navController=navController,
+                                    emailState = emailState.value,
+                                    passwordState = passwordState.value,
+                                    route = "techhome_screen", context = context)
+                            },
                             colors = ButtonDefaults.buttonColors(containerColor = Red100),
                             modifier = Modifier
                                 .padding(top = 30.dp, bottom = 34.dp)
@@ -451,6 +474,6 @@ fun LoginScreenHeader() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    LoginScreen(navController = rememberNavController())
+    LoginScreen(navController = rememberNavController(), context = LocalContext.current)
 }
 

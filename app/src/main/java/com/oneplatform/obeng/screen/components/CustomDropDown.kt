@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class,
+    ExperimentalMaterial3Api::class
+)
 
 package com.oneplatform.obeng.screen.components
 import androidx.compose.foundation.Canvas
@@ -40,18 +42,19 @@ import com.oneplatform.obeng.R
 import com.oneplatform.obeng.ui.theme.Red20
 import com.oneplatform.obeng.ui.theme.gray
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomDropdownMenu(
     leadingIconId: Int,
     dropDownList: Array<String>,
-    visualTransformation: VisualTransformation
+    visualTransformation: VisualTransformation,
+    onItemSelected: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(dropDownList[0]) }
 
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         ExposedDropdownMenuBox(
             expanded = expanded,
@@ -60,7 +63,6 @@ fun CustomDropdownMenu(
             }
         ) {
             OutlinedTextField(
-                
                 value = selectedText,
                 onValueChange = {},
                 readOnly = true,
@@ -72,17 +74,14 @@ fun CustomDropdownMenu(
                         verticalAlignment = Alignment.CenterVertically,
                         content = {
                             Image(
-                                modifier = Modifier
-                                    .padding(start = 10.dp, end = 10.dp)
-                                    .size(18.dp),
-                                bitmap = ImageBitmap.imageResource(id = leadingIconId),  // material icon
+                                modifier = Modifier.padding(start = 10.dp, end = 10.dp).size(18.dp),
+                                bitmap = ImageBitmap.imageResource(id = leadingIconId),
                                 colorFilter = ColorFilter.tint(Red20),
                                 contentDescription = "custom_text_field"
                             )
                             Canvas(
                                 modifier = Modifier.height(24.dp)
                             ) {
-                                // Allows you to draw a line between two points (p1 & p2) on the canvas.
                                 drawLine(
                                     color = Color.LightGray,
                                     start = Offset(0f, 0f),
@@ -93,14 +92,13 @@ fun CustomDropdownMenu(
                         }
                     )
                 },
-
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Red20,
                     unfocusedBorderColor = Color.Transparent,
                     focusedLabelColor = Color.White,
                     disabledTrailingIconColor = Color.White,
                 ),
-                shape = RoundedCornerShape(10.dp), // Adjust the corner radius as needed
+                shape = RoundedCornerShape(10.dp),
                 textStyle = TextStyle(color = gray, fontSize = 16.sp),
                 visualTransformation = visualTransformation
             )
@@ -115,6 +113,7 @@ fun CustomDropdownMenu(
                         onClick = {
                             selectedText = item
                             expanded = false
+                            onItemSelected(item) // Invoke the callback with the selected item
                         }
                     )
                 }
@@ -123,10 +122,11 @@ fun CustomDropdownMenu(
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun CustomDropDownPreview(){
     CustomDropdownMenu(dropDownList = arrayOf("Choose a Skill", "Mobil", "Motor"),
-        leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None
+        leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None, onItemSelected = {}
     )
 }

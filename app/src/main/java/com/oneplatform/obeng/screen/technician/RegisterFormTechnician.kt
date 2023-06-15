@@ -1,5 +1,7 @@
 package com.oneplatform.obeng.screen.technician
 
+import AuthStateManager
+import CustomStyleGroupedCheckbox
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,11 +20,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -33,18 +38,56 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.oneplatform.obeng.R
+import com.oneplatform.obeng.model.FirebaseAuthModel
 import com.oneplatform.obeng.screen.components.CustomDropdownMenu
-import com.oneplatform.obeng.screen.components.CustomStyleGroupedCheckbox
 import com.oneplatform.obeng.screen.components.CustomStyleTextField
 import com.oneplatform.obeng.screen.components.SmallBanner
 import com.oneplatform.obeng.ui.theme.Red100
 import com.oneplatform.obeng.ui.theme.White10
 import com.oneplatform.obeng.ui.theme.gray
+import com.oneplatform.obeng.utils.FirebaseAuthImpl
+
 
 @Composable
-fun RegisterFormTechnician(navController: NavController){
+fun RegisterFormTechnician(navController: NavController,  authRegister: FirebaseAuthModel){
     var pageCount = remember { mutableStateOf(0) }
     val listState = rememberLazyListState()
+
+    // State for form input fields
+    var emailState by remember { mutableStateOf(String()) }
+    var passwordState by remember { mutableStateOf(String()) }
+    var usernameState by remember { mutableStateOf(String()) }
+    var phoneState by remember { mutableStateOf(String()) }
+    var addressState by remember { mutableStateOf(String()) }
+    var skillState by remember { mutableStateOf(String()) }
+    var certificationLinkState by remember { mutableStateOf(String()) }
+    var portfolioLinkState by remember { mutableStateOf(String()) }
+    var skillCategoryState by remember { mutableStateOf<List<String>>(emptyList()) }
+
+
+
+    fun onRegisterClick(){
+        authRegister.registerWithEmailTechnician(
+            emailState,
+            passwordState,
+            usernameState,
+            phoneState,
+            addressState,
+            skillState,
+            certificationLinkState,
+            portfolioLinkState,
+            skillCategoryState,
+            role = "technician",
+            onSuccess = {
+                navController.navigate("login_screen")
+            }
+
+        ) {
+            // Handle registration failure here
+            // Show an error message or perform necessary actions
+        }
+    }
+
     LazyColumn(state = listState, modifier = Modifier
         .fillMaxSize()){
         item {
@@ -106,7 +149,10 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Username",
                                     R.drawable.ic_person,
                                     KeyboardType.Text,
-                                    VisualTransformation.None
+                                    VisualTransformation.None,
+                                    onValueChange = { newValue ->
+                                        usernameState = newValue
+                                    }
                                 )
 
                                 //Email
@@ -119,7 +165,10 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Email",
                                     R.drawable.ic_email,
                                     KeyboardType.Email,
-                                    VisualTransformation.None
+                                    VisualTransformation.None,
+                                    onValueChange = { newValue ->
+                                        emailState = newValue
+                                    }
                                 )
 
                                 //Password
@@ -132,7 +181,10 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Password",
                                     R.drawable.ic_password,
                                     KeyboardType.Password,
-                                    PasswordVisualTransformation()
+                                    PasswordVisualTransformation(),
+                                    onValueChange = { newValue ->
+                                        passwordState = newValue
+                                    }
                                 )
 
                                 //Phone
@@ -145,7 +197,10 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Phone",
                                     R.drawable.ic_phone,
                                     KeyboardType.Phone,
-                                    VisualTransformation.None
+                                    VisualTransformation.None,
+                                    onValueChange = { newValue ->
+                                        phoneState = newValue
+                                    }
                                 )
 
                                 //Address
@@ -158,7 +213,10 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Address",
                                     R.drawable.ic_address,
                                     KeyboardType.Text,
-                                    VisualTransformation.None
+                                    VisualTransformation.None,
+                                    onValueChange = { newValue ->
+                                        addressState = newValue
+                                    }
                                 )
 
                                 //Dropdown Skills
@@ -167,9 +225,14 @@ fun RegisterFormTechnician(navController: NavController){
                                     style = MaterialTheme.typography.labelSmall.copy(color = gray),
                                     modifier = Modifier.padding(bottom = 10.dp, top = 10.dp)
                                 )
-                                CustomDropdownMenu(dropDownList = arrayOf("Choose a Skill", "Mobil", "Motor"),
-                                    leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None
-                                )
+                                CustomDropdownMenu(
+                                    dropDownList = arrayOf("Choose a Skill", "Mobil", "Motor"),
+                                    leadingIconId = R.drawable.ic_flat_flower,
+                                    visualTransformation = VisualTransformation.None,
+                                ) { selectedSkill ->
+                                    // Handle the selected skill here
+                                    skillState = selectedSkill // Update the skillState with the selected skill
+                                }
 
                                 //Certification
                                 Text(
@@ -181,7 +244,10 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Certification Link",
                                     R.drawable.ic_checklist,
                                     KeyboardType.Text,
-                                    VisualTransformation.None
+                                    VisualTransformation.None,
+                                    onValueChange = { newValue ->
+                                        certificationLinkState = newValue
+                                    }
                                 )
 
                                 //Portofolio
@@ -194,10 +260,12 @@ fun RegisterFormTechnician(navController: NavController){
                                     "Portofolio Link",
                                     R.drawable.ic_document,
                                     KeyboardType.Text,
-                                    VisualTransformation.None
+                                    VisualTransformation.None,
+                                    onValueChange = { newValue ->
+                                        portfolioLinkState = newValue
+                                    }
                                 )
 
-                                //Jenis Keahlian
                                 Text(
                                     text = "Skill Category",
                                     style = MaterialTheme.typography.labelSmall.copy(color = gray),
@@ -205,11 +273,19 @@ fun RegisterFormTechnician(navController: NavController){
                                 )
                                 CustomStyleGroupedCheckbox(
                                     mItemsList = listOf("Mesin", "Ban", "Bodi Kendaraan", "Interior", "Oli")
-                                )
+                                ) { selectedItems ->
+                                    // Handle the selected items here
+                                    // You can update a state variable or perform any desired action
+                                    // For example:
+                                    skillCategoryState = selectedItems
+                                }
+
 
                                 //Button Register
                                 Button(
-                                    onClick = {},
+                                    onClick = {
+                                              onRegisterClick()
+                                    },
                                     colors = ButtonDefaults.buttonColors(containerColor = Red100),
                                     modifier = Modifier
                                         .padding(top = 30.dp, bottom = 34.dp)
@@ -236,5 +312,7 @@ fun RegisterFormTechnician(navController: NavController){
 @Preview(showBackground = true)
 @Composable
 fun RegisterFormTechnicianPreview(){
-    RegisterFormTechnician(navController = rememberNavController())
+    RegisterFormTechnician(navController = rememberNavController(), authRegister =  FirebaseAuthImpl(authStateManager = AuthStateManager(
+        LocalContext.current)
+    ))
 }

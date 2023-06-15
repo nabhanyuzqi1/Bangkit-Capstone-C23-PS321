@@ -86,7 +86,9 @@ fun RefundForm(navController: NavController){
                                 )
                                 CustomDropdownMenu(dropDownList = arrayOf("Pilih Bank", "BCA", "BRI"),
                                     leadingIconId = R.drawable.ic_flat_flower, visualTransformation = VisualTransformation.None
-                                )
+                                ){
+
+                                }
 
                                 //Nomor Rekening
                                 Text(
@@ -98,7 +100,10 @@ fun RefundForm(navController: NavController){
                                     placeHolder = "Nomor Rekening",
                                     leadingIconId = R.drawable.ic_account_bank,
                                     keyboardType = KeyboardType.Text,
-                                    visualTransformation = VisualTransformation.None
+                                    visualTransformation = VisualTransformation.None,
+                                    onValueChange = {
+
+                                    }
                                 )
 
                                 //Nama Rekening
@@ -111,7 +116,10 @@ fun RefundForm(navController: NavController){
                                     placeHolder = "Nama Rekening",
                                     leadingIconId = R.drawable.ic_profile,
                                     keyboardType = KeyboardType.Text,
-                                    visualTransformation = VisualTransformation.None
+                                    visualTransformation = VisualTransformation.None,
+                                    onValueChange = {
+
+                                    }
                                 )
 
 

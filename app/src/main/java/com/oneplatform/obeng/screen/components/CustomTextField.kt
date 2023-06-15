@@ -29,13 +29,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.oneplatform.obeng.R
 import com.oneplatform.obeng.ui.theme.Red20
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,9 +42,10 @@ fun CustomStyleTextField(
     leadingIconId: Int,
     keyboardType: KeyboardType,
     visualTransformation: VisualTransformation,
-    maxLines: Int = 1
+    maxLines: Int = 1,
+    onValueChange: (String) -> Unit
 ) {
-    val textState = remember { mutableStateOf(TextFieldValue()) }
+    val textState = remember { mutableStateOf(String()) }
 
     OutlinedTextField(
         modifier = Modifier
@@ -58,9 +56,11 @@ fun CustomStyleTextField(
         maxLines = maxLines,
         onValueChange = { valueChanged ->
             textState.value = valueChanged
+            onValueChange(valueChanged)
         },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         placeholder = { Text(text = placeHolder) },
+
         leadingIcon = {
             Row(
                 modifier = Modifier.wrapContentWidth(),
@@ -104,10 +104,10 @@ fun CustomStyleTextField(
 @Preview(showBackground = false)
 @Composable
 fun CustomTextFieldPreview(){
-    CustomStyleTextField(
+    /*CustomStyleTextField(
         "Password",
         R.drawable.ic_password,
         KeyboardType.Password,
         PasswordVisualTransformation()
-    )
+    )*/
 }

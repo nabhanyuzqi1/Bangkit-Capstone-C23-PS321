@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -47,11 +46,6 @@ fun RecommendationResult(navController: NavController){
                             .fillMaxSize()
                             .padding(20.dp)
                     ) {
-                        TechnicianSection(navController)
-                        Spacer(modifier = Modifier.padding(10.dp))
-                        TechnicianSection(navController)
-                        Spacer(modifier = Modifier.padding(10.dp))
-                        TechnicianSection(navController)
                     }
                 }
             }

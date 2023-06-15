@@ -33,8 +33,6 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.model.DialogViewModel
-import com.oneplatform.obeng.model.techDummyData
-import com.oneplatform.obeng.screen.components.CardPayment
 import com.oneplatform.obeng.screen.components.CustomDropdownMenu
 import com.oneplatform.obeng.screen.components.CustomStyleTextField
 import com.oneplatform.obeng.screen.components.CustomTechProfileCard
@@ -101,7 +99,9 @@ fun ServiceRequest(navController: NavController) {
                             leadingIconId = R.drawable.ic_flat_flower,
                             dropDownList = arrayOf("Mobil", "Motor"),
                             visualTransformation = VisualTransformation.None
-                        )
+                        ){
+
+                        }
                     }
                 }
 
@@ -136,7 +136,10 @@ fun ServiceRequest(navController: NavController) {
                             leadingIconId = R.drawable.ic_technician,
                             keyboardType = KeyboardType.Text,
                             visualTransformation = VisualTransformation.None,
-                            maxLines = 4
+                            maxLines = 4,
+                            onValueChange = {
+
+                            }
                         )
                     }
                 }
@@ -153,7 +156,7 @@ fun ServiceRequest(navController: NavController) {
                         )
                         Spacer(modifier = Modifier.padding(top = 5.dp, bottom = 5.dp))
 
-                        CardPayment(cardTechStats = techDummyData[0])
+                        //CardPayment(cardTechStats = techDummyData[0])
                         ButtonPayment(DialogModel = DialogViewModel())
                     }
 

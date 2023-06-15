@@ -63,8 +63,7 @@ import coil.compose.rememberImagePainter
 import com.oneplatform.obeng.R
 import com.oneplatform.obeng.model.CardOrderStats
 import com.oneplatform.obeng.model.CardOrderTypes
-import com.oneplatform.obeng.model.Technician
-import com.oneplatform.obeng.model.techDummyData
+import com.oneplatform.obeng.model.TechnicianViewModel
 import com.oneplatform.obeng.ui.theme.primary
 import com.oneplatform.obeng.ui.theme.third
 
@@ -330,10 +329,9 @@ fun CardHistoryOrder(cardOrderStats: CardOrderStats) {
 @Preview(showBackground = true)
 @Composable
 fun CardPaymentPreview(){
-    CardPayment(cardTechStats = techDummyData[0])
 }
 @Composable
-fun CardPayment(cardTechStats: Technician){
+fun CardPayment(cardTechStats: TechnicianViewModel.Technician){
     Column {
         Card(
             modifier = Modifier
@@ -384,7 +382,7 @@ fun CardPayment(cardTechStats: Technician){
 }
 
 @Composable
-fun CardTechName(cardTechStats: Technician){
+fun CardTechName(cardTechStats: TechnicianViewModel.Technician?){
     Column {
         Card(
             modifier = Modifier
@@ -439,14 +437,14 @@ fun CardTechName(cardTechStats: Technician){
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(text = "Keahlian")
-                        Text(text = cardTechStats.jenisKeahlian)
+                        Text(text = "cardTechStats.jenisKeahlian.joinToString()")
                     }
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(text = "Alamat")
-                        Text(text = cardTechStats.alamat)
+                        /*Text(text = "Alamat")
+                        cardTechStats.alamat?.let { Text(text = it) }*/
                     }
 
                 }
@@ -485,11 +483,11 @@ fun CardTechName(cardTechStats: Technician){
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(text = "Sertifikasi")
-                        SimpleClickableText(linkUrl = cardTechStats.linkSertifikasi, textName = "Click Me")
+                        //SimpleClickableText(linkUrl = cardTechStats.linkSertifikasi, textName = "Click Me")
                     }
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(text = "Portofolio")
-                        SimpleClickableText(linkUrl = cardTechStats.linkPortofolio, textName = "Click Me")
+                        //(linkUrl = cardTechStats.linkPortofolio, textName = "Click Me")
                     }
                 }
             }
@@ -635,7 +633,7 @@ fun ImagePickerPreview() {
 @Preview(showBackground = true)
 @Composable
 fun CardTechNamePreview(){
-    CardTechName(techDummyData[0])
+    //CardTechName(techDummyData[0])
 }
 
 @Preview(showBackground = true)

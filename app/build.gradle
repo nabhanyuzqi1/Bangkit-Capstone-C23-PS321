@@ -64,7 +64,11 @@ android {
 
 
 dependencies {
+
+
     implementation 'com.opencsv:opencsv:5.5.2'
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 
     implementation 'com.midtrans:uikit:1.25.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
