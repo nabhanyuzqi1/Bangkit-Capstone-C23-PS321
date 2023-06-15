@@ -24,8 +24,10 @@ app.use("/api/service-requests", serviceReqRouter);
 app.use("/api/dompet", dompetRouter);
 app.post("/payment", paymentRouter);
 
-app.listen(5000, () => {
-  console.log("Obeng REST API listening on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log("Obeng REST API listening on port", PORT);
 });
 
-// newest: endpoint payment, delete const cors
+
