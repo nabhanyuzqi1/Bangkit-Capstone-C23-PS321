@@ -21,11 +21,7 @@ Obeng (Online Bengkel) is an innovative application that provides vehicle repair
 
 ## Documentation
 
-![ObengApp](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/main/assets/obeng-main.png)
-
-## System Architecture
-
-![SystemArchitecture](##)
+![ObengApp](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/main/assets/obeng-main.png)<br>
 
 ## Repositories
 
@@ -56,5 +52,4 @@ Dataset Links of This Project :
 ## Deployment Link APK Obeng
 
 Download Link APK Obeng:<br>
-[ObengAPK (Google Drive)](##)<br>
-TBA
+[ObengAPK (Google Drive)](https://drive.google.com/file/d/1rH9ZsWOuL0Co1S_SvECFwHUhXq34Hefl/view?usp=sharing)
