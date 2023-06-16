@@ -39,7 +39,3 @@ The Machine Learning model can recommend the user with the best technicians that
 
 ## DEPLOYMENT 
 We use TensorFlow Lite to deploy a trained Machine Learning model on Android.
-
-## REFERENCES
-- TBA
-
