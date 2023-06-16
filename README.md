@@ -24,7 +24,7 @@ Cloud Computing have responsible for creating and managing APIs, databases and s
 - Midtrans
 
 ## CLOUD ARCHITECTURE
-![ObengCloudArchitecture](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/cloud_computing/assets/CC%20Documentation/Obeng%20Cloud%20Architecture.png)
+![ObengCloudArchitecture](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/cloud_computing/assets/CC%20Documentation/Obeng_CloudArchitecture.png)
 
 ## API Description
 The API is built using node js and express js as our API framework, we use Firebase Authentication for registration and login functions, and also use Firestore Database to store user and technician data and utilize Google Cloud Storage to store images KTP and Profile. We deploy and implement this API and Machine Learning model with cloud run.
