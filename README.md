@@ -49,8 +49,8 @@ Dataset Links of This Project :
 ## UI/UX Design
 
 - Link Lo-Fi Design : [Lo-Fi](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=0-1&t=tCL0XlJp69OuHAxa-0)
-- Link Hi-Fi User Design : [Hi-Fi](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-923&t=tCL0XlJp69OuHAxa-0)
-- Link Hi-Fi Technician Design : [Hi-Fi](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=405-1629&t=tCL0XlJp69OuHAxa-0)
+- Link Hi-Fi User Design : [User Hi-Fi](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=25-923&t=tCL0XlJp69OuHAxa-0)
+- Link Hi-Fi Technician Design : [Technician Hi-Fi](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=405-1629&t=tCL0XlJp69OuHAxa-0)
 - Link Prototype Design : [Prototype](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=702-1682&scaling=scale-down&page-id=405%3A1629&starting-point-node-id=702%3A1682)
 
 ## Deployment Link APK Obeng
