@@ -21,7 +21,7 @@ Obeng (Online Bengkel) is an innovative application that provides vehicle repair
 
 ## Documentation
 
-![ObengApp](##)
+![ObengApp](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/main/assets/obeng-main.png)
 
 ## System Architecture
 
