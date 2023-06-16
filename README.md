@@ -2,7 +2,7 @@
 ## Bangkit Capstone Project 202
 
 Bangkit Capstone Team ID : C23 - PS321 <br>
-Here is our repository for Bangkit 2023 Capstone project. Our team consist of 2 Mobile Development, 2 Machine Learning, and 2 Cloud Computing.
+Here is our team Capstone Product Based repository for Bangkit 2023 Capstone project. Our team consist of 2 Mobile Development, 2 Machine Learning, and 2 Cloud Computing.
 
 ## Our Warriors
 
@@ -17,7 +17,7 @@ Here is our repository for Bangkit 2023 Capstone project. Our team consist of 2 
 
 ## About this project
 
-Obeng is an innovative application that provides vehicle repair and service solutions. With Obeng, users can easily find skilled and reliable automotive technicians to handle their vehicle repairs. The application facilitates users in searching, booking, and monitoring the repair process in real-time. Enjoy a convenient and trustworthy vehicle repair experience with the Obeng app.
+Obeng (Online Bengkel) is an innovative application that provides vehicle repair and service solutions. With Obeng, users can easily find skilled and reliable automotive technicians to handle their vehicle repairs. The application facilitates users in searching, booking, and monitoring the repair process in real-time. Enjoy a convenient and trustworthy vehicle repair experience with the Obeng app.
 
 ## Documentation
 
@@ -53,8 +53,8 @@ Dataset Links of This Project :
 - Link Hi-Fi Technician Design : [Hi-Fi](https://www.figma.com/file/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=405-1629&t=tCL0XlJp69OuHAxa-0)
 - Link Prototype Design : [Prototype](https://www.figma.com/proto/9caFW2emSExDwB4rHaIW5W/Online-Bengkel?type=design&node-id=702-1682&scaling=scale-down&page-id=405%3A1629&starting-point-node-id=702%3A1682)
 
-## Deployment Link APK Waras
+## Deployment Link APK Obeng
 
-Download Link APK Waras:<br>
+Download Link APK Obeng:<br>
 [ObengAPK (Google Drive)](##)<br>
 TBA
