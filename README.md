@@ -37,6 +37,8 @@ The API is built using node js and express js as our API framework, we use Fireb
 
 ## Entity Relationship Diagram (ERD)
 ![Entity Relationship Diagram (ERD)](https://github.com/nabhanyuzqi1/Bangkit-Capstone-C23-PS321/blob/cloud_computing/assets/CC%20Documentation/ObengApp_ERD.png)
+<br>
+we create an ERD design before starting to develop our application cloud structure. This really helps us in managing files and data such as information about authentication, customer and technician profiles, and also payment and transaction data between customer, admin and technicians that will be stored in the database.
 
 ## SECURITY
 To access our APIs which stores data and images in our databases, we keep serviceAccountKey.json that  authenticate and authorize access to Google Cloud Platform (GCP) services through Firebase only for admins.
